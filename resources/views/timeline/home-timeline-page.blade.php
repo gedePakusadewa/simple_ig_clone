@@ -5,7 +5,7 @@
 		@if(!empty($data))
 			@foreach($data as $account)
 				<div class="card" style="width:400px">
-					<img src = "{{$account->path_src}}" width = "100"/>
+					<img src = "{{asset('storage/'.$account->path_src)}}" width = "100"/>
 					<div class="card-body"><p>{{$account->caption}}</p></div>
 				</div>
 				<br />

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Postingans;
+use App\Models\Postingan;
+use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
@@ -16,9 +17,8 @@ class UploadController extends Controller
         $account_id = session('account_id');
         $file = $request->file('filePost');
 
-        $post_name =  $account_id."_".time()."_".$file->getClientOriginalName();
-
-        echo $post_name;
-        //Postingans::addNewData($account_id, $caption, $type, $path_src);
+        //$post_name =  $account_id."_".time()."_".$file->getClientOriginalName();
+        Postingan::addNewData($account_id, $caption, 'photo', $file->store('img-post', 'public'));
+        return redirect()->route('home_timeline_page');
     }
 }
