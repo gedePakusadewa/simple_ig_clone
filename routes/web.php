@@ -22,6 +22,7 @@ Route::prefix('account')->group(function(){
     Route::post('verify-login', 'App\Http\Controllers\AccountController@verifyLogInData')->name('verify_login');
     Route::get('reset-session', 'App\Http\Controllers\AccountController@resetSession')->name('reset_session');
     Route::get('edit', 'App\Http\Controllers\AccountController@getUpdateAccountPage')->name('updt_account_pge');
+    Route::get('log-out', 'App\Http\Controllers\AccountController@getLogOut')->name('logout');
 });
 
 Route::prefix('timeline')->group(function(){
@@ -38,6 +39,13 @@ Route::prefix('explore')->group(function(){
 //     Route::get('')
 
 // });
+
+Route::group(['prefix' => '{account_name}'], function(){
+    Route::get('/', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');
+
+});
+
+//Route::get('{account_name}', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');
 
 Route::fallback(function(){
 	//https://laravel.com/docs/8.x/routing#fallback-routes

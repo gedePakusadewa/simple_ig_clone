@@ -29,6 +29,11 @@ class AccountController extends Controller
 
     }
 
+    public function getLogOut(Request $request){
+        $request->session()->flush();
+        return redirect()->route('login_page');
+    }
+
     private function isUsernameExist($username){
         $data = Account::getOneData('username', $username);
         return $data !== null ? true : false;

@@ -37,11 +37,11 @@
 							<a href="javascript:void(0)" onclick = "dropSubmenu('account-submenu')">Account</a>
 						</div>
 						<div id="account-submenu" class="hidden-submenu">
-							<div><a href="">Profile</a></div>
+							<div><a href="{{route('profile_page', ['account_name' => session('account_username')])}}">Profile</a></div>
 							<div><a href="">Saved</a></div>
 							<div><a href="{{route('updt_account_pge')}}">Settings</a></div>
 							<div><a href="">Switch Account</a></div>
-							<div><a href="">Log Out</a></div>
+							<div><a href="{{route('logout')}}">Log Out</a></div>
 						</div>
 					</div>	
 				</div>
