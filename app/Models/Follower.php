@@ -19,9 +19,10 @@ class Follower extends Model
     }
 
     static function addNewSampleData(){
-        Follower::addNewData('1', '1');
-        // Follower::addNewData('1', '3');
-        // Follower::addNewData('1', '5');
+        Follower::addNewData('2', '2');
+        Follower::addNewData('3', '3');
+        Follower::addNewData('4', '4');
+        Follower::addNewData('5', '5');
     } 
     
     static function getAllIdFollower($account_id){

@@ -31,7 +31,8 @@ class Postingan extends Model
 
     static function getAllFollowerPostinganIncludedHimSelf($account_id){
         return Postingan::join('followers', 'postingans.account_id', '=', 'followers.follower_id')
-            ->select('account_id', 'caption', 'path_src')
+            ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+            ->select('postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username')
             ->where('followers.member_id', '=', $account_id)
             ->get();     
     }
