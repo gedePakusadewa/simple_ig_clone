@@ -35,17 +35,17 @@ Route::prefix('explore')->group(function(){
 
 });
 
-// Route::prefix('profile'->group(function(){
-//     Route::get('')
+// Route::prefix('upload-post')->group(function(){
+//     Route::get('upload-page', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_page');
 
 // });
 
 Route::group(['prefix' => '{account_name}'], function(){
     Route::get('/', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');
-
+    Route::get('upload-post', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_pg');
+    Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
 });
 
-//Route::get('{account_name}', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');
 
 Route::fallback(function(){
 	//https://laravel.com/docs/8.x/routing#fallback-routes

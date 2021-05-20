@@ -28,6 +28,7 @@
 
 			<div class="d-flex p-3 bg-secondary text-white">
 				<div class = "p-2"><a href = "{{route('home_timeline_page')}}">home</a></div>
+				<div class = "p-2"><a href = "{{route('upload_pg', ['account_name' => session('account_username')])}}">Add Post</a></div>
 				<div class = "p-2">inbox</div>
 				<div class = "p-2"><a href = "{{route('home_explore_page')}}">explore</a></div>
 				<div class = "p-2">like</div>
