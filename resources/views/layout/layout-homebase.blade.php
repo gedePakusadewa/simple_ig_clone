@@ -21,8 +21,9 @@
 	</head>
 	<body class = "bg-light">
             <h1>INSTAGRAM</h1>
-			<form>
-				<input type = "text" name = "search" placeholder = "search" />
+			<form action = "{{route('account_search_rslt')}}" method = "post">
+				<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
+				<input type = "text" name = "keyword" placeholder = "search" />
 				<button type = "submit" >Search</button>
 			</form>
 

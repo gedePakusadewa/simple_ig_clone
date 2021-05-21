@@ -32,6 +32,7 @@ Route::prefix('timeline')->group(function(){
 
 Route::prefix('explore')->group(function(){
     Route::get('explore', 'App\Http\Controllers\ExploreController@getHomeExplore')->name('home_explore_page');
+    Route::post('account-search-result', 'App\Http\Controllers\ExploreController@getAccountSearchResult')->name('account_search_rslt');
 
 });
 

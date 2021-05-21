@@ -12,7 +12,7 @@
 				</div><br />
 			@endforeach
 		@else
-			<p>SOMETHING WRONG, PLEASE reload</p>
+			<p>SEARCH NAME FIRST</p>
 		@endif
 	</div>
 @endsection

@@ -31,4 +31,10 @@ class Account extends Model
     static function getOneData($column, $keywords){
         return Account::where($column, "=", $keywords)->first();
     }
+
+    static function getAccountSearchResult($keyword){
+        return Account::where('username', 'LIKE', '%'.$keyword.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$keyword.'%')
+                ->get();
+    }
 }
