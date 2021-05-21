@@ -13,7 +13,7 @@ class ProfileController extends Controller
             'totalPost' => Postingan::getTotalNumberPostinganFromOneID(intval(session('account_id'))), 
             'totalFollowing' => Follower::getTotalNumberFollowingFromOneID(intval(session('account_id'))), 
             'totalFollower' => Follower::getTotalNumberFollowerFromOneID(intval(session('account_id'))),
-            'dataPostingan' => Postingan::getAllData('account_id', intval(session('account_id')))
+            'dataPostingan' => Postingan::getEveryPostUploadedByOneID(intval(session('account_id')))
             ]);
     }
     

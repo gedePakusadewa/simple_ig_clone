@@ -26,7 +26,7 @@ Route::prefix('account')->group(function(){
 });
 
 Route::prefix('timeline')->group(function(){
-    Route::get('timeline', 'App\Http\Controllers\TimelineController@getHomeTimelinePage')->name('home_timeline_page');
+    Route::get('/', 'App\Http\Controllers\TimelineController@getHomeTimelinePage')->name('home_timeline_page');
 
 });
 
@@ -45,6 +45,7 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::get('/', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');
     Route::get('upload-post', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_pg');
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
+    Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
 });
 
 

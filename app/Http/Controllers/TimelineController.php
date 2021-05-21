@@ -14,5 +14,6 @@ class TimelineController extends Controller
         return view('timeline.home-timeline-page', ['data' => Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')))]);
     }
 
+
     
 }

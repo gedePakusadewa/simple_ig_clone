@@ -32,7 +32,7 @@ class Postingan extends Model
     static function getAllFollowerPostinganIncludedHimSelf($account_id){
         return Postingan::join('followers', 'postingans.account_id', '=', 'followers.follower_id')
             ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
-            ->select('postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username')
+            ->select('postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username')
             ->where('followers.member_id', '=', $account_id)
             ->get();     
     }
@@ -41,5 +41,14 @@ class Postingan extends Model
         return Postingan::where('account_id', '=', $id)->count();
     }
 
+    static function getEveryPostUploadedByOneID($account_id){
+        return Postingan::select('postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', Postingan::raw('COUNT(likeds.id) as totalLiked'))
+            ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+            ->leftJoin('likeds', 'postingans.id', '=', 'likeds.postingan_id')
+            ->where('postingans.account_id', '=', $account_id)
+            ->groupBy('postingans.id', 'accounts.username')
+            ->get(); 
 
+
+    }
 }
