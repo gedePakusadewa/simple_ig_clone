@@ -37,4 +37,9 @@ class Postingan extends Model
             ->get();     
     }
 
+    static function getTotalNumberPostinganFromOneID($id){
+        return Postingan::where('account_id', '=', $id)->count();
+    }
+
+
 }

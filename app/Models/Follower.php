@@ -29,4 +29,12 @@ class Follower extends Model
         return Follower::where('id', '=', $account_id)->get();
     }
 
+    static function getTotalNumberFollowingFromOneID($id){
+        return Follower::where('member_id', '=', $id)->count() - 1;
+    }
+
+    static function getTotalNumberFollowerFromOneID($id){
+        return Follower::where('follower_id', '=', $id)->count() - 1;
+    }
+
 }
