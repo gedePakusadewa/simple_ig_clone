@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Postingan;
 use App\Models\Follower;
+use App\Models\Account;
 
 class ProfileController extends Controller
 {
-    public function getProfilePage(){
+    public function getProfilePage($username){
+        $accountData = Account::getOneData('username', $username);
+        $id = $accountData->id;
         return view('profile.home-profile-page', [
-            'totalPost' => Postingan::getTotalNumberPostinganFromOneID(intval(session('account_id'))), 
-            'totalFollowing' => Follower::getTotalNumberFollowingFromOneID(intval(session('account_id'))), 
-            'totalFollower' => Follower::getTotalNumberFollowerFromOneID(intval(session('account_id'))),
-            'dataPostingan' => Postingan::getEveryPostUploadedByOneID(intval(session('account_id')))
+            'totalPost' => Postingan::getTotalNumberPostinganFromOneID($id), 
+            'totalFollowing' => Follower::getTotalNumberFollowingFromOneID($id), 
+            'totalFollower' => Follower::getTotalNumberFollowerFromOneID($id),
+            'dataPostingan' => Postingan::getEveryPostUploadedByOneID($id)
             ]);
     }
-    
+   
 }

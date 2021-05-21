@@ -8,7 +8,7 @@
 		@if(!empty($searchResult))
 			@foreach($searchResult as $data)
 				<div>
-					<p>{{$data->username}}</p>
+					<p><a href = "{{route('profile_page', ['account_name' => $data->username])}}">{{$data->username}}</a></p>
 				</div><br />
 			@endforeach
 		@else

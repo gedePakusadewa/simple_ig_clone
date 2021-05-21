@@ -31,7 +31,7 @@ Route::prefix('timeline')->group(function(){
 });
 
 Route::prefix('explore')->group(function(){
-    Route::get('explore', 'App\Http\Controllers\ExploreController@getHomeExplore')->name('home_explore_page');
+    Route::get('/', 'App\Http\Controllers\ExploreController@getHomeExplore')->name('home_explore_page');
     Route::post('account-search-result', 'App\Http\Controllers\ExploreController@getAccountSearchResult')->name('account_search_rslt');
 
 });
@@ -47,7 +47,6 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
 });
-
 
 Route::fallback(function(){
 	//https://laravel.com/docs/8.x/routing#fallback-routes
