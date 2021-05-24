@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return redirect()->route('login_page');
 });
 
+//next alih engken carane ngai ilter untuk membedakan phone_number, email, atao username cari di web IG
+//next terapkan validation care di laravel, kuala pelajin malu pank sink pelih dan mubazir nganggone
+Route::get('/', 'App\Http\Controllers\AccountController@getLogInPage')->name('login_page');
+
 Route::prefix('account')->group(function(){
-    Route::get('login', 'App\Http\Controllers\AccountController@getLogInPage')->name('login_page');
     Route::post('verify-login', 'App\Http\Controllers\AccountController@verifyLogInData')->name('verify_login');
     Route::get('reset-session', 'App\Http\Controllers\AccountController@resetSession')->name('reset_session');
     Route::get('edit', 'App\Http\Controllers\AccountController@getUpdateAccountPage')->name('updt_account_pge');
     Route::get('log-out', 'App\Http\Controllers\AccountController@getLogOut')->name('logout');
+    Route::get('sign-up-page', [AccountController::class, 'getSignUpPage'])->name('sign_up_page');
+
+    //validate login untuk validati email belum bisa, regex hanya bisa di JS, dan error di server side
+    Route::post('validate-and-save-account', [AccountController::class, 'setNewDataAccount'])->name('validate_and_save_account');
 });
 
 Route::prefix('timeline')->group(function(){
@@ -46,6 +54,11 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::get('upload-post', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_pg');
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
+});
+
+Route::middleware('optimizeImages')->group(function () {
+    // all images will be optimized automatically
+    Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
 });
 
 Route::fallback(function(){

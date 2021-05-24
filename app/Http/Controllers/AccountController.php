@@ -3,13 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Account;
+use App\Models\Follower;
+use App\Models\CookiesLogInUser;
+use App\Http\Traits\UsersSessionTrait;
+use App\Http\Traits\InputValidationTrait;
+use App\Http\Traits\CookieTrait;
+use Illuminate\Support\Facades\Cookie;
+
 
 class AccountController extends Controller
 {
+    use UsersSessionTrait;
+    use InputValidationTrait;
+    use CookieTrait;
+
     public function getLogInPage(Request $request){
         //Account::addSampleData();
-        return view('account.login-page');
+        //$this->isSessionExists($request, 'account_username') 
+        if($this->isCookieExist() && $this->isSessionExists($request, 'account_username')){
+            return redirect()->route('home_timeline_page');
+        // }if else($this->isCookieExist() === true 
+        //     && $this->isSessionExists($request, 'account_username') === false){
+        //     $this->setNewSession($username);
+        //     return redirect()->route('home_timeline_page');
+        }else{
+            //$this->setCookies();
+            return view('account.login-page');
+        }
     }
 
     public function getUpdateAccountPage(){
@@ -17,16 +39,51 @@ class AccountController extends Controller
     }
 
     public function verifyLogInData(Request $request){
-        $username = $request->input('username');
-        $pwd = $request->input('pwd');
 
-        if($this->isUsernameExist($username) && $this->isPasswordExist($pwd)){
+        // // var_dump($request->cookie('name'));
+        // var_dump(Cookie::get('tes1'));  
+        $username = $this->filterBasicInput($request->input('username'));
+        $pwd = $this->filterBasicInput($request->input('pwd'));
+
+        if($this->canThisLogIn($username, $pwd)){
+            $this->setNewSession($username);
+            $this->setCookies();
+            return redirect()->route('home_timeline_page');
+        }else{
+            //return view('account.login-page', ['notif' => "Please fill it correctly."]);
+            // return redirect()->route('login_page', ['notif' => "Please fill it correctly."]);
+            return redirect()->route('login_page')->with('status', 'One or all of your input data is in wrong format, please fill it correctly. Or your username or password is not in our database yet.');
+        }
+        //var_dump($this->isCookieExistInServer());
+    }
+
+    
+
+    public function getSignUpPage(Request $request){
+        if($this->isSessionExists($request, 'account_username')){
+            return redirect()->route('home_timeline_page');
+        }else{
+            $this->setExpiredCookie();
+            return view('account.sign-up-page');
+        }
+    }
+
+    public function setNewDataAccount(Request $request){
+        $username = $this->filterBasicInput($request->input('username'));
+        $pwd = $this->filterBasicInput($request->input('pwd'));
+        $email = $this->filterBasicInput($request->input('email'));
+        $fullname = $this->filterBasicInput($request->input('fullname'));
+
+        if($this->canThisSignUp($email, $fullname, $username, $pwd)){
+            $data = Account::addNewData($username, $pwd, '-', $email, $fullname, '-', '-');
+            Follower::addNewData($data->id, $data->id);
             $this->setNewSession($username);
             return redirect()->route('home_timeline_page');
         }else{
-            return redirect()->route('login_page');
+            //return view('account.login-page', ['notif' => "Please fill it correctly."]);
+            // return redirect()->route('login_page', ['notif' => "Please fill it correctly."]);
+            return redirect()->route('sign_up_page')->with('status', 'One or all of your input data is in wrong format, please fill it correctly.');
         }
-
     }
 
     public function getLogOut(Request $request){
@@ -34,14 +91,9 @@ class AccountController extends Controller
         return redirect()->route('login_page');
     }
 
-    private function isUsernameExist($username){
-        $data = Account::getOneData('username', $username);
-        return $data !== null ? true : false;
-    }
-
-    private function isPasswordExist($pwd){
-        $data = Account::getOneData('password', $pwd);
-        return $data !== null ? true : false;
+    public function resetSession(Request $request){
+        $request->session()->flush();
+        return redirect()->route('login_page');
     }
 
     private function setNewSession($username){
@@ -49,8 +101,22 @@ class AccountController extends Controller
         session(['account_username' => $username, 'account_id' => strval($data->id)]);
     }
 
-    public function resetSession(Request $request){
-        $request->session()->flush();
-        return redirect()->route('login_page');
+    private function isUsernameAndPasswordFormatValid($username, $pass){
+        return $this->isUsernameFormatValid($username) && $this->isPasswordFormatValid($pass) ? true : false;
     }
+
+    private function isUsernameAndPasswordExist($username, $pass){
+        return $this->isUsernameExist($username) && $this->isPasswordExist($pass) ? true : false;
+    }
+
+    private function canThisLogIn($username, $pass){
+        return $this->isUsernameAndPasswordFormatValid($username, $pass) && $this->isUsernameAndPasswordExist($username, $pass) ? true : false;
+    }
+
+    private function canThisSignUp($email, $fullname, $username, $pass){
+        // return $this->isEmailFormatValid($email) && $this->isFullNameFormatValid($fullname) && $this->isUsernameFormatValid($username) && $this->isPasswordFormatValid($pass) ? true : false;
+
+        return $this->isFullNameFormatValid($fullname) && $this->isUsernameFormatValid($username) && $this->isPasswordFormatValid($pass) ? true : false;
+    }
+
 }

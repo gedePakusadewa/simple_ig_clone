@@ -19,5 +19,4 @@ class ProfileController extends Controller
             'dataPostingan' => Postingan::getEveryPostUploadedByOneID($id)
             ]);
     }
-   
 }
