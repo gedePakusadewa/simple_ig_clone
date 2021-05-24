@@ -8,14 +8,17 @@ use App\Models\Follower;
 use Illuminate\Support\Str;
 use App\Http\Traits\UsersSessionTrait;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Traits\CookieTrait;
 
 class TimelineController extends Controller
 {
     use UsersSessionTrait;
+    use CookieTrait;
 
     public function getHomeTimelinePage(Request $request){
         //var_dump(Postingan::getAllFollowerPostinganIncludedHimSelf(6));
         //Follower::addNewSampleData();
+
         if($this->isSessionExists($request, 'account_username')){
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
             return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data)]);
@@ -23,8 +26,7 @@ class TimelineController extends Controller
             return redirect()->route('login_page');
         }
 
-        //return $this->setExpiredCookie();
-
+           // echo $this->getIdUserFromCookie($this->getCookieValue(''));
     }
 
     private function setExpiredCookie(){

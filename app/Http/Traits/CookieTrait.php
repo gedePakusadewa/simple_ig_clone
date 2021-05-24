@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\CookiesLogInUser;
+use App\Models\CookieIdUser;
 
 trait CookieTrait {
     public function setCookies(){
@@ -27,6 +28,7 @@ trait CookieTrait {
         if($this->isCookieExistInClient() === false && $this->isCookieExistInServer() === false){
             $value = $this->generateRandomString(32);
             CookiesLogInUser::setNewData('cookie_id', $value);
+            CookieIdUser::setNewData(session('account_id'), $value);
             Cookie::queue('cookie_id', $value, 1);
         }
     }
@@ -34,6 +36,7 @@ trait CookieTrait {
     public function setExpiredCookie(){
         Cookie::expire('cookie_id');
         CookiesLogInUser::deleteSingleData('cookie_value', Cookie::get('cookie_id'));
+        CookieIdUser::deleteSingleData('cookie_value', Cookie::get('cookie_id'));
     }
 
     public function isCookieExistInClient(){
@@ -58,4 +61,15 @@ trait CookieTrait {
         }
         return $randomString;
     }
+
+    public function getIdUserFromCookie($cookie_value){
+        $tmpData = CookieIdUser::getSingleData('cookie_value', $cookie_value);
+        return $tmpData->user_id;
+    }
+
+    public function getCookieValue($cookieName){
+        return Cookie::get($cookieName);
+    }
+
+
 }

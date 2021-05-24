@@ -22,5 +22,9 @@ class CookieIdUser extends Model
         return CookieIdUser::where($column, '=', $value)->first();
     }
 
+    static function deleteSingleData($column, $value){
+        return CookieIdUser::where($column, '=', $value)->delete();
+    }
+
 
 }

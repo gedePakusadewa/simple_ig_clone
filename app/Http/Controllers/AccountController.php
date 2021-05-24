@@ -22,16 +22,20 @@ class AccountController extends Controller
     public function getLogInPage(Request $request){
         //Account::addSampleData();
         //$this->isSessionExists($request, 'account_username') 
+
         if($this->isCookieExist() && $this->isSessionExists($request, 'account_username')){
             return redirect()->route('home_timeline_page');
-        // }if else($this->isCookieExist() === true 
-        //     && $this->isSessionExists($request, 'account_username') === false){
-        //     $this->setNewSession($username);
-        //     return redirect()->route('home_timeline_page');
+        }else if($this->isCookieExist() === true 
+            && $this->isSessionExists($request, 'account_username') === false){
+            //kondisi ketiak user exit browser tapi belum logout.
+            $this->setNewSessionForCookie($this->getIdUserFromCookie($this->getCookieValue('cookie_id')));
+            return redirect()->route('home_timeline_page');
         }else{
             //$this->setCookies();
             return view('account.login-page');
         }
+
+        //ada kondisi lainnyua yaitu ketika user ada session tetapi tidak ada cookie. kuala sink terapin ibe karena klo session ada pasti cookie dibuat.
     }
 
     public function getUpdateAccountPage(){
@@ -88,6 +92,7 @@ class AccountController extends Controller
 
     public function getLogOut(Request $request){
         $request->session()->flush();
+        $this->setExpiredCookie();
         return redirect()->route('login_page');
     }
 
@@ -99,6 +104,11 @@ class AccountController extends Controller
     private function setNewSession($username){
         $data = Account::getOneData('username', $username);
         session(['account_username' => $username, 'account_id' => strval($data->id)]);
+    }
+
+    private function setNewSessionForCookie($user_id){
+        $data = Account::getOneData('id', $user_id);
+        session(['account_username' => $data->username, 'account_id' => strval($data->id)]);
     }
 
     private function isUsernameAndPasswordFormatValid($username, $pass){
