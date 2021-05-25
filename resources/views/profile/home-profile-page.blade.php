@@ -26,7 +26,7 @@
 				@foreach($dataPostingan as $post)
 					<div class="card" style="width:300px">
 						<div><h4>{{$post->username}}</h4></div>
-						<img src = "{{asset('storage/'.$post->path_src)}}" width = "100"/>
+						<img src = "{{asset('storage/'.$post->path_src)}}" width = "100" loading = "lazy" />
 						<div>
 							<a href = "{{route('add_liked_dta', [
 								'account_name' => session('account_username'),

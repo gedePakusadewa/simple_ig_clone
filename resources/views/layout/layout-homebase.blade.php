@@ -24,7 +24,7 @@
 		</style>
 	</head>
 	<body class = "bg-light container-body-template">
-		<div class="d-flex justify-content-between bg-secondary ">
+		<div class="d-flex justify-content-between bg-secondary fixed-top">
 			<div class="p-2"><a href = "{{route('home_timeline_page')}}">Instagram</a></div>
 			<div class="p-2">
 				<form action = "{{route('account_search_rslt')}}" method = "post">
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div style = "margin-top : 90px;">
 			@yield('content')
 		</div>
 	</body>
