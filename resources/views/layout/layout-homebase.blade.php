@@ -21,42 +21,48 @@
 			 .container-body-template{
 				 margin:0 15%
 			 }
+
+			 .body-margin-top-fixed-bar{
+				margin-top : 90px;
+			 }
 		</style>
 	</head>
 	<body class = "bg-light container-body-template">
-		<div class="d-flex justify-content-between bg-secondary fixed-top">
-			<div class="p-2"><a href = "{{route('home_timeline_page')}}">Instagram</a></div>
-			<div class="p-2">
-				<form action = "{{route('account_search_rslt')}}" method = "post">
-					<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
-					<input type = "text" name = "keyword" placeholder = "search" />
-				</form>
-			</div>
-			<div class="p-2">
-				<div class="d-flex justify-content-end bg-secondary mb-3">
-					<div class = "p-2"><a href = "{{route('home_timeline_page')}}">home</a></div>
-					<div class = "p-2"><a href = "{{route('upload_pg', ['account_name' => session('account_username')])}}">Add Post</a></div>
-					<div class = "p-2">inbox</div>
-					<div class = "p-2"><a href = "{{route('home_explore_page')}}">explore</a></div>
-					<div class = "p-2">like</div>
-					<div class = "p-2">
-						<div id = "container-dropdown-account">
-							<div>
-								<a href="javascript:void(0)" onclick = "dropSubmenu('account-submenu')">Account</a>
-							</div>
-							<div id="account-submenu" class="hidden-submenu">
-								<div><a href="{{route('profile_page', ['account_name' => session('account_username')])}}">Profile</a></div>
-								<div><a href="">Saved</a></div>
-								<div><a href="{{route('updt_account_pge')}}">Settings</a></div>
-								<div><a href="">Switch Account</a></div>
-								<div><a href="{{route('logout')}}">Log Out</a></div>
-							</div>
-						</div>	
+		<div class = "fixed-top bg-secondary">
+			<div class="d-flex justify-content-between container-body-template">
+				<div class="p-2"><a href = "{{route('home_timeline_page')}}">Instagram</a></div>
+				<div class="p-2">
+					<form action = "{{route('account_search_rslt')}}" method = "post">
+						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
+						<input type = "text" name = "keyword" placeholder = "search" />
+					</form>
+				</div>
+				<div class="p-2">
+					<div class="d-flex justify-content-end bg-secondary mb-3">
+						<div class = "p-2"><a href = "{{route('home_timeline_page')}}">home</a></div>
+						<div class = "p-2"><a href = "{{route('upload_pg', ['account_name' => session('account_username')])}}">Add Post</a></div>
+						<div class = "p-2"><a href = "{{route('home_inbox_page')}}">inbox</a></div>
+						<div class = "p-2"><a href = "{{route('home_explore_page')}}">explore</a></div>
+						<div class = "p-2">like</div>
+						<div class = "p-2">
+							<div id = "container-dropdown-account">
+								<div>
+									<a href="javascript:void(0)" onclick = "dropSubmenu('account-submenu')">Account</a>
+								</div>
+								<div id="account-submenu" class="hidden-submenu">
+									<div><a href="{{route('profile_page', ['account_name' => session('account_username')])}}">Profile</a></div>
+									<div><a href="">Saved</a></div>
+									<div><a href="{{route('updt_account_pge')}}">Settings</a></div>
+									<div><a href="">Switch Account</a></div>
+									<div><a href="{{route('logout')}}">Log Out</a></div>
+								</div>
+							</div>	
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div style = "margin-top : 90px;">
+		<div class = "body-margin-top-fixed-bar">
 			@yield('content')
 		</div>
 	</body>

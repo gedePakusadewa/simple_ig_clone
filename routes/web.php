@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\InboxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,10 @@ Route::group(['prefix' => '{account_name}'], function(){
 Route::middleware('optimizeImages')->group(function () {
     // all images will be optimized automatically
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
+});
+
+Route::prefix('direct')->group(function (){
+    Route::get('inbox', [InboxController::class, 'getHomeInboxPage'])->name('home_inbox_page');
 });
 
 Route::fallback(function(){
