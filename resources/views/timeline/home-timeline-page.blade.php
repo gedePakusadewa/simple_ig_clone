@@ -6,7 +6,7 @@
 			@foreach($data as $post)
 				<div class="card mt-2" style="width:650px">
 					<div><p><a href = "{{route('profile_page', ['account_name' => $post->username])}}"><strong>{{$post->username}}</strong></a></p></div>
-					<img src = "{{asset('storage/'.$post->path_src)}}" width = "600"/>
+					<img src = "{{asset('storage/'.$post->path_src)}}" width = "600" loading="lazy" />
 					<div>
 						<a href = "{{route('add_liked_dta', [
 							'account_name' => session('account_username'),
