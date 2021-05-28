@@ -39,8 +39,27 @@
 				<div class="p-2">
 					<form action = "{{route('account_search_rslt')}}" method = "post">
 						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
-						<input type = "text" name = "keyword" placeholder = "search" />
+						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "search" />
 					</form>
+					<div id = "modalSearch" style = "height:200px; width:270px; position:relative; border:1px solid black;" class = "bg-light ">
+			 			<div class = "d-flex justify-content-between">
+			 				<div>Recent</div>
+							<div>Clear All</div>
+						</div>
+						<div class = "modal-dialog-scrollable">
+							<div class = "modal-body">
+								<div>1</div>
+								<div>2</div>
+								<div>3</div>
+								<div>4</div>
+								<div>5</div>
+								<div>6</div>
+								<div>7</div>
+								<div>8</div>
+								<div>9</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="p-2">
 					<div class="d-flex justify-content-end bg-secondary mb-3">
@@ -74,6 +93,19 @@
 
 	<script>
 
+		window.addEventListener('load', function(){	
+			document.getElementById('modalSearch').style.display = "none";
+			document.getElementById('inputSearch').addEventListener('click', function(){
+				if(document.getElementById('modalSearch').style.display === ""){
+					document.getElementById('modalSearch').style.display = "none";
+				}else if(document.getElementById('modalSearch').style.display === "block"){
+					document.getElementById('modalSearch').style.display = "none";
+				}else{
+					document.getElementById('modalSearch').style.display = "block";
+				}
+			});
+		});
+			 
 		function dropSubmenu(idSubmenu){
 			var statusDisplay = document.getElementById(idSubmenu); 
 
