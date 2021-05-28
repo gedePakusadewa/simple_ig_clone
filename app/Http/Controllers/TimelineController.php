@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Postingan;
 use App\Models\Follower;
+use App\Models\Account;
 use Illuminate\Support\Str;
 use App\Http\Traits\UsersSessionTrait;
 use Illuminate\Support\Facades\Cookie;
@@ -21,12 +22,12 @@ class TimelineController extends Controller
 
         if($this->isSessionExists($request, 'account_username')){
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
-            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data)]);
+            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id')))]);
         }else{
             return redirect()->route('login_page');
         }
 
-           // echo $this->getIdUserFromCookie($this->getCookieValue(''));
+        // echo $this->getIdUserFromCookie($this->getCookieValue(''));
     }
 
     private function setExpiredCookie(){

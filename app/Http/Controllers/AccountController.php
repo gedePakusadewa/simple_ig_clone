@@ -27,7 +27,7 @@ class AccountController extends Controller
             return redirect()->route('home_timeline_page');
         }else if($this->isCookieExist() === true 
             && $this->isSessionExists($request, 'account_username') === false){
-            //kondisi ketiak user exit browser tapi belum logout.
+            //kondisi ketika user exit browser tapi belum logout.
             $this->setNewSessionForCookie($this->getIdUserFromCookie($this->getCookieValue('cookie_id')));
             return redirect()->route('home_timeline_page');
         }else{

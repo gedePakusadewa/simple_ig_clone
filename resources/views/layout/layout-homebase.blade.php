@@ -25,6 +25,11 @@
 			 .body-margin-top-fixed-bar{
 				margin-top : 90px;
 			 }
+
+			 .fixed-sidebar-timeline{
+				position:fixed;
+				left:62%;
+			 }
 		</style>
 	</head>
 	<body class = "bg-light container-body-template">

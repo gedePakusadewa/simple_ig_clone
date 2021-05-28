@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\SSEController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ use App\Http\Controllers\InboxController;
 Route::get('/login', function () {
     return redirect()->route('login_page');
 });
+
+Route::get('/testEvent', [SSEController::class, 'getData'])->name('sse');
 
 //next alih engken carane ngai ilter untuk membedakan phone_number, email, atao username cari di web IG
 //next terapkan validation care di laravel, kuala pelajin malu pank sink pelih dan mubazir nganggone
