@@ -53,12 +53,4 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		var source = new EventSource('http://127.0.0.1:3000/testEvent');
-		source.onmessage = function(event) {
-			//document.getElementById("result").innerHTML += event.data + "<br />";
-			console.log(event.data);
-		}; 
-	</script>
 @endsection
