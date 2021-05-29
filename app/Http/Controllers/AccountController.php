@@ -103,7 +103,7 @@ class AccountController extends Controller
 
     private function setNewSession($username){
         $data = Account::getOneData('username', $username);
-        session(['account_username' => $username, 'account_id' => strval($data->id)]);
+        session(['account_username' => $username, 'account_id' => strval($data->id), 'account_img_path' =>$data->selfie_path]);
     }
 
     private function setNewSessionForCookie($user_id){

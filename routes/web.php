@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\SSEController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::get('upload-post', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_pg');
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
+    Route::post('save-comment-postingan/{idPostingan}', [CommentController::class, 'setNewDataComment'])->name('save_comment_post');
 });
 
 Route::middleware('optimizeImages')->group(function () {
