@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InboxController;
-use App\Http\Controllers\SSEController;
 use App\Http\Controllers\CommentController;
 
 /*
@@ -20,8 +19,6 @@ use App\Http\Controllers\CommentController;
 Route::get('/login', function () {
     return redirect()->route('login_page');
 });
-
-Route::get('/testEvent', [SSEController::class, 'getData'])->name('sse');
 
 //next alih engken carane ngai ilter untuk membedakan phone_number, email, atao username cari di web IG
 //next terapkan validation care di laravel, kuala pelajin malu pank sink pelih dan mubazir nganggone
@@ -48,11 +45,6 @@ Route::prefix('explore')->group(function(){
     Route::post('account-search-result', 'App\Http\Controllers\ExploreController@getAccountSearchResult')->name('account_search_rslt');
 
 });
-
-// Route::prefix('upload-post')->group(function(){
-//     Route::get('upload-page', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_page');
-
-// });
 
 Route::group(['prefix' => '{account_name}'], function(){
     Route::get('/', 'App\Http\Controllers\ProfileController@getProfilePage')->name('profile_page');

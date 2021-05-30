@@ -68,22 +68,26 @@
 						</div>
 					</div>
 
-					@for($i = 0; $i < 6; $i++)
-						<div class = "d-flex flex-row text-light" style = "padding:3px 0;">
-							<div>
-								<img style = "border-radius: 50%;" src = "{{session('account_img_path')}}" width = "25px" />
-							</div>
-							<div class = "d-flex flex-column" style = "color:black; margin-left:10px;">
-								<div class = "d-flex justify-content-between" style = "width:255px;">
-									<div>
-										{{$userData->username}}<br />
-										<span class = "text-secondary">{{$userData->full_name}}</span>
+					@if(!empty($data))
+						@foreach($suggestionData as $post)
+							<div class = "d-flex flex-row text-light" style = "padding:3px 0;">
+								<div>
+									<img style = "border-radius: 50%;" src = "{{$post->selfie_path}}" width = "25px" />
+								</div>
+								<div class = "d-flex flex-column" style = "color:black; margin-left:10px;">
+									<div class = "d-flex justify-content-between" style = "width:255px;">
+										<div>
+											{{$post->username}}<br />
+											<span class = "text-secondary">{{$post->full_name}}</span>
+										</div>
+										<div>follow</div>
 									</div>
-									<div>switch</div>
 								</div>
 							</div>
-						</div>
-					@endfor
+						@endforeach
+					@else
+						<h1>Something wrong here</h1>
+					@endif
 				@else
 					<h1>Something wrong here</h1>
 				@endif

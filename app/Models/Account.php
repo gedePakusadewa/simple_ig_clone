@@ -37,4 +37,8 @@ class Account extends Model
                 ->orWhere('full_name', 'LIKE', '%'.$keyword.'%')
                 ->get();
     }
+
+    static function getLimitedData($numberRow){
+        return Account::limit($numberRow)->get();
+    }
 }

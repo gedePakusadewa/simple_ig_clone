@@ -22,7 +22,7 @@ class TimelineController extends Controller
 
         if($this->isSessionExists($request, 'account_username')){
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
-            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id')))]);
+            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id'))), 'suggestionData' => Account::getLimitedData(5)]);
         }else{
             return redirect()->route('login_page');
         }
