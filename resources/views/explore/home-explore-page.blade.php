@@ -2,17 +2,16 @@
 
 @section('content')
 	<div>
-		<h1>XPLORE</h1>
-	</div>
-	<div>
-		@if(!empty($searchResult))
-			@foreach($searchResult as $data)
-				<div>
-					<p>{{$data->username}}</p>
-				</div><br />
-			@endforeach
-		@else
-			<p>SOMETHING WRONG, PLEASE reload</p>
-		@endif
+		<div class = "d-flex flex-wrap">
+			@if(!empty($exploreData))
+				@foreach($exploreData as $post)
+					<div class="card" style = "width:300px; height:auto; margin:7px;">
+						<img style = "object-fit:cover" src = "{{asset('storage/'.$post->path_src)}}" width = "100%" loading = "lazy" />
+					</div>
+				@endforeach
+			@else
+				<h3>Data is not set</h3>
+			@endif
+		</div>
 	</div>
 @endsection

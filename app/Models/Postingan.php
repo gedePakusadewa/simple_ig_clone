@@ -29,6 +29,10 @@ class Postingan extends Model
         return Postingan::where($column, "=", $keywords)->get();
     }
 
+    static function getAllDataLiterally(){
+        return Postingan::get();
+    }
+
     static function getAllFollowerPostinganIncludedHimSelf($account_id){
         return Postingan::join('followers', 'postingans.account_id', '=', 'followers.follower_id')
             ->join('accounts', 'postingans.account_id', '=', 'accounts.id')

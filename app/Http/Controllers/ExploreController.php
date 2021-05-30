@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Postingan;
 
 class ExploreController extends Controller
 {
     public function getHomeExplore(){
-        return view('explore.home-explore-page');
+        return view('explore.home-explore-page', ['exploreData' => Postingan::getAllDataLiterally()]);
     }
 
     public function getAccountSearchResult(Request $request){
