@@ -25,7 +25,7 @@
 						<div class = "text-center py-4 mt-1">
 							<img src = "/icon/font-only-ig.png" alt = "loing-picture" width = "200px"/>
 						</div>
-						<form name = "loginForm" onsubmit = "return validateInputDataLoginForm()" action="{{route('verify_login')}}" class = "padding-form-input-width" method = "post">
+						<form name = "loginForm" onsubmit = "return validateInputDataLoginForm()" action="" class = "padding-form-input-width" method = "post">
 							<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" /> 
 							<div class="form-group">
 								<input type="text" class="form-control" name="username" placeholder = "username" style = "background-color:#f8f9fa;" />
@@ -49,13 +49,12 @@
 						</form>
 					</div>
 					<div style = "margin: 10px 0; padding:20px 0; text-align:center; border:1px solid #dbdbdb; background-color:white;">
-						Don't have an account? <a href = "{{route('sign_up_page')}}">Sign up</a>
+						Don't have an account? <a href = "">Sign up</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<br />
-		<a href = "{{route('reset_session')}}">Reset Session</a>
 		<footer>
 			<div class = "py-3 text-center text-gray">
 			© 2021 Instagram from Facebook.

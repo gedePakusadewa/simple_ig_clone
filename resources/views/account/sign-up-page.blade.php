@@ -72,10 +72,7 @@
 			</div>
 		</div>
 		</div>
-
-
 		<br />
-		<a href = "{{route('reset_session')}}">Reset Session</a>
 		<footer>
 			<div class = "py-3 text-center text-gray">
 			© 2021 Instagram from Facebook.

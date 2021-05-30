@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function setNewDataComment(Request $request){
-        var_dump($request->input('comment'));
+        // var_dump($request->input('comment'));
         //echo "ulala";
     }
 }
