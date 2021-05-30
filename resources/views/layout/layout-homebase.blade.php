@@ -57,7 +57,7 @@
 						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "search" style = "text-align:center;"/>
 					</form>
-					<div id = "modalSearch" style = "height:200px; width:270px; position:relative; border:1px solid black;" class = "bg-light ">
+					<div id = "modalSearch" class="hidden-submenu" style = "height:200px; width:300px; border:2px solid #dbdbdb; border-radius:5px; background-color:white; padding:5px ">
 			 			<div class = "d-flex justify-content-between">
 			 				<div>Recent</div>
 							<div>Clear All</div>
@@ -144,6 +144,9 @@
 				document.getElementById('account-submenu').style.display = "none";
 			}
 
+			if(!document.getElementById("inputSearch").contains(e.target)){
+				document.getElementById('modalSearch').style.display = "none";
+			}
 		});
 			
 	</script>
