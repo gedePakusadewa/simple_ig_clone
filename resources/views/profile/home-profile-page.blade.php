@@ -1,24 +1,23 @@
 @extends('layout/layout-homebase')
 
 @section('content')
-	<div>
-		<div class="d-flex bg-secondary mb-3">
-			<div>
+	<div style = "margin-bottom:100px;">
+		<div class="d-flex mb-3 pb-5" style = "border-bottom:1px solid black;">
+			<div class = "ml-5">
 				<img style = "border-radius: 50%;" src = "{{session('account_img_path')}}" width = "180px" />
 			</div>
-			<div class="p-2 bg-warning w-75">
-				<div class="d-flex mb-3">
-					<div class="p-2 bg-info">{{session('account_username')}}</div>
-					<div class="p-2 bg-warning">edit profile</div>
-					<div class="p-2 bg-warning">setting</div>
+			<div class="p-2 pl-5" style = "">
+				<div class="d-flex">
+					<div class="p-2" style = "font-size:25px;">{{session('account_username')}}</div>
+					<div class="p-2"><button style = "font-weight:bold;">edit profile</button></div>
+					<div class="p-2"><i class="material-icons" style="font-size:36px">settings</i></div>
 				</div>
-				<div class="d-flex mb-3">
-					<div class="p-2 bg-info">{{$totalPost}} posts</div>
-					<div class="p-2 bg-warning">{{$totalFollower}} followers</div>
-					<div class="p-2 bg-warning">{{$totalFollowing}} following</div>
+				<div class="d-flex">
+					<div class="p-2"><strong>{{$totalPost}}</strong> posts</div>
+					<div class="p-2"><strong>{{$totalFollower}}</strong> followers</div>
+					<div class="p-2"><strong>{{$totalFollowing}}</strong> following</div>
 				</div>
-				<div>Full name (not set yet)</div>
-				<div>bio (not set yet)</div>
+				<div class="p-2"><strong>{{$accountData->full_name}}</strong></div>
 			</div>
 		</div>
 
@@ -33,17 +32,8 @@
 			<div class = "d-flex flex-wrap">
 				@if(!empty($dataPostingan))
 					@foreach($dataPostingan as $post)
-						<div class="card" style="width:300px">
-							<div><h4>{{$post->username}}</h4></div>
-							<img src = "{{asset('storage/'.$post->path_src)}}" width = "100" loading = "lazy" />
-							<div>
-								<a href = "{{route('add_liked_dta', [
-									'account_name' => session('account_username'),
-									'idPostingan' => $post->id
-									])}}" class = "p-2">{{$post->totalliked}} like</a>
-								<a href = "" class = "p-2">comment</a>
-							</div>
-							<div class="card-body"><p>{{$post->caption}}</p></div>
+						<div class="card" style = "width:300px; height:auto; margin:7px;">
+							<img style = "object-fit:cover" src = "{{asset('storage/'.$post->path_src)}}" width = "100%" loading = "lazy" />
 						</div>
 					@endforeach
 				@else

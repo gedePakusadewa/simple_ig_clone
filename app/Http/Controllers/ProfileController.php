@@ -16,7 +16,8 @@ class ProfileController extends Controller
             'totalPost' => Postingan::getTotalNumberPostinganFromOneID($id), 
             'totalFollowing' => Follower::getTotalNumberFollowingFromOneID($id), 
             'totalFollower' => Follower::getTotalNumberFollowerFromOneID($id),
-            'dataPostingan' => Postingan::getEveryPostUploadedByOneID($id)
+            'dataPostingan' => Postingan::getEveryPostUploadedByOneID($id),
+            'accountData' => $accountData
             ]);
     }
 }
