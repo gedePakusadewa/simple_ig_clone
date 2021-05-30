@@ -33,7 +33,7 @@
 				@if(!empty($dataPostingan))
 					@foreach($dataPostingan as $post)
 						<div class="card" style = "width:300px; height:auto; margin:7px;">
-							<img style = "object-fit:cover" src = "{{asset('storage/'.$post->path_src)}}" width = "100%" loading = "lazy" />
+							<img style = "object-fit:cover" src = "{{$post->path_src}}" width = "100%" loading = "lazy" />
 						</div>
 					@endforeach
 				@else

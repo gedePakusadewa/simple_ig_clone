@@ -9,7 +9,7 @@
 						<div class = "p-3">
 							<a href = "{{route('profile_page', ['account_name' => $post->username])}}"><img style = "border-radius: 50%;" src = "{{$post->selfie_path}}" width = "35px" /><strong style = "padding-left:10px;">{{$post->username}}</strong></a>
 						</div>
-						<!-- <img style = "width:100%; height:auto; object-fit: cover;" src = "{{//asset('storage/'.$post->path_src)}}" width = "600" loading = "lazy" /> -->
+						<!-- seberarnya makek asset fitur laravel, tapi gara2 keterbatasan dari heroku jadi semua gambar harus berada di folder public-->
 						<img style = "width:100%; height:auto; object-fit: cover;" src = "{{$post->path_src}}" width = "600" loading = "lazy" /> 
 						<div style = "padding:7px 10px">
 							<a href = "{{route('add_liked_dta', [
