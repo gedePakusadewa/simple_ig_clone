@@ -4,11 +4,11 @@
 	<div style = "margin-bottom:100px;">
 		<div class="d-flex mb-3 pb-5" style = "border-bottom:1px solid black;">
 			<div class = "ml-5">
-				<img style = "border-radius: 50%;" src = "{{session('account_img_path')}}" width = "180px" />
+				<img style = "border-radius: 50%;" src = "{{$accountData->selfie_path}}" width = "180px" />
 			</div>
 			<div class="p-2 pl-5" style = "">
 				<div class="d-flex">
-					<div class="p-2" style = "font-size:25px;">{{session('account_username')}}</div>
+					<div class="p-2" style = "font-size:25px;">{{$accountData->username}}</div>
 					<div class="p-2"><button style = "font-weight:bold;">edit profile</button></div>
 					<div class="p-2"><i class="material-icons" style="font-size:36px">settings</i></div>
 				</div>

@@ -15,9 +15,22 @@
 							<a href = "{{route('add_liked_dta', [
 								'account_name' => session('account_username'),
 								'idPostingan' => $post->id
-								])}}"><i class='far fa-heart' style = "font-size:23px;  color:black;"></i></a>
+								])}}">
+								@if($post->alreadyLiked === true)
+								  <i class='fas fa-heart' style = "font-size:23px; color:red;"></i>
+								@else
+								  <i class='far fa-heart' style = "font-size:23px; color:black;"></i>
+								@endif
+							</a>
 							<a href = "" class = "p-2"><i class='far fa-comment' style = "font-size:23px; color:black;"></i></a>
 							<a href = "" class = "p-2"><i class='fas fa-location-arrow' style = "font-size:20px; color:black;"></i></a>
+						</div>
+						<div>
+						  @if($post->totalLiked === 0)
+						    Be the first to <strong>like this</strong>
+						  @else
+						    <strong>{{$post->totalLiked}} likes</strong>
+						  @endif
 						</div>
 						<div style = "padding:7px 10px">
 							<a href = "{{route('profile_page', ['account_name' => $post->username])}}"><strong>{{$post->username}}</strong></a> {{$post->caption}}

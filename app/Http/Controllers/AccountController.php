@@ -61,8 +61,6 @@ class AccountController extends Controller
         //var_dump($this->isCookieExistInServer());
     }
 
-    
-
     public function getSignUpPage(Request $request){
         if($this->isSessionExists($request, 'account_username')){
             return redirect()->route('home_timeline_page');

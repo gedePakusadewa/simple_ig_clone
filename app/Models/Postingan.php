@@ -53,4 +53,6 @@ class Postingan extends Model
             ->groupBy('postingans.id', 'accounts.username')
             ->get(); 
     }
+
+
 }

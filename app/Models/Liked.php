@@ -26,5 +26,13 @@ class Liked extends Model
             ->get(); 
     }
 
+    static function getTotalPostinganLikedPerId($postinganId){
+        return Liked::where('postingan_id', '=', $postinganId)->count();
+    }
+
+    static function getPostinganIdLikedByAccount($account_id){
+        return Liked::where('account_id', '=', $account_id)->get();
+    }
+
     
 }
