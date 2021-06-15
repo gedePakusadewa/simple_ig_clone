@@ -25,7 +25,7 @@
 						<div class = "text-center py-4 mt-1">
 							<img src = "/icon/font-only-ig.png" alt = "loing-picture" width = "200px"/>
 						</div>
-						<form name = "loginForm" onsubmit = "return validateInputDataLoginForm()" action="" class = "padding-form-input-width" method = "post">
+						<form name = "loginForm" onsubmit = "return validateInputDataLoginForm()" action="{{route('verify_login')}}" class = "padding-form-input-width" method = "post">
 							<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" /> 
 							<div class="form-group">
 								<input type="text" class="form-control" name="username" placeholder = "username" style = "background-color:#f8f9fa;" />

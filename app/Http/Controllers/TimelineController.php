@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Postingan;
 use App\Models\Follower;
 use App\Models\Account;
+use App\Models\Account1;
+use App\Models\User1;
 use Illuminate\Support\Str;
 use App\Http\Traits\UsersSessionTrait;
 use Illuminate\Support\Facades\Cookie;
@@ -19,7 +21,7 @@ class TimelineController extends Controller
     public function getHomeTimelinePage(Request $request){
         //var_dump(Postingan::getAllFollowerPostinganIncludedHimSelf(6));
         //Follower::addNewSampleData();
-
+        //User1::addSampleData();
         if($this->isSessionExists($request, 'account_username')){
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
             return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id'))), 'suggestionData' => Account::getLimitedData(5)]);
@@ -28,10 +30,6 @@ class TimelineController extends Controller
         }
 
         // echo $this->getIdUserFromCookie($this->getCookieValue(''));
-    }
-
-    private function setExpiredCookie(){
-        Cookie::expire('tes1');
     }
 
     private function getHowLongUploadedVideo($data){
