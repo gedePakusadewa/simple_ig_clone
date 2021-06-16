@@ -19,6 +19,12 @@ class AccountController extends Controller
     use InputValidationTrait;
     use CookieTrait;
 
+  public function processSpecialLogin(){
+    $this->setNewSession("deltagamma");
+    $this->setCookies();
+    return redirect()->route('home_timeline_page');
+  }
+
     public function getLogInPage(Request $request){
         //Account::addSampleData();
         //$this->isSessionExists($request, 'account_username') 
@@ -39,7 +45,12 @@ class AccountController extends Controller
     }
 
     public function getUpdateAccountPage(){
-        return view('account.update-account-information-page');
+        //return view('account.update-account-information-page');
+        return view('announcement.under-development', ['pageName' => 'Settings']);
+    }
+
+    public function getSwitchAccountPage(){
+        return view('announcement.under-development', ['pageName' => 'Switch Account']);
     }
 
     public function verifyLogInData(Request $request){

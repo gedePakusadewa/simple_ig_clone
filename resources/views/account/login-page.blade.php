@@ -12,6 +12,21 @@
 			.padding-form-input-width{
 				padding:0 10%;
 			}
+
+			.log-in-as-someone{
+			  background-color:#007bff;
+			  text-align:center;
+			  border-radius:4px;
+			  padding:8px 0;
+			  color:white;
+			}
+
+			a.log-in-link:link, a.log-in-link:visited, a.log-in-link:hover, a.log-in-link:active {
+			  color: white;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+
 		</style>
 	</head>
 	<body class = "bg-light">
@@ -37,7 +52,13 @@
 							<div class="form-group">
 								<input type="submit" class="form-control" value = "Log In" style = "background-color:#007bff; color:white;"/>
 							</div>
-
+							
+							<div class = "log-in-as-someone">
+							  <a href = "{{route('special_login')}}" class = "log-in-link">
+							    Log In with one of the accounts 
+							  </a>
+							</div>
+							
 							<br /><div id="alert-username" class="alert-register-input"><strong>Wrong username format!</strong> Please fill it with alphabet or number or both character. Minimal 5 characters.</div>
 							<br /><div id="alert-password" class="alert-register-input"><strong>Wrong password format!</strong> Please fill it with at least one letter and one number, minimal characters are four.</div>
 

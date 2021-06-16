@@ -20,4 +20,9 @@ class ProfileController extends Controller
             'accountData' => $accountData
             ]);
     }
+
+    public function getSavedPage(){
+        //return view('profile.saved');
+        return view('announcement.under-development', ['pageName' => 'Saved']);
+    }
 }

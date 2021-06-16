@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/', 'App\Http\Controllers\AccountController@getLogInPage')->name('lo
 
 Route::prefix('account')->group(function(){
     Route::post('verify-login', 'App\Http\Controllers\AccountController@verifyLogInData')->name('verify_login');
+    Route::get('process-login', [AccountController::class, 'processSpecialLogin'])->name('special_login');
     Route::get('reset-session', 'App\Http\Controllers\AccountController@resetSession')->name('reset_session');
     Route::get('edit', 'App\Http\Controllers\AccountController@getUpdateAccountPage')->name('updt_account_pge');
     Route::get('log-out', 'App\Http\Controllers\AccountController@getLogOut')->name('logout');
@@ -33,6 +35,8 @@ Route::prefix('account')->group(function(){
 
     //validate login untuk validati email belum bisa, regex hanya bisa di JS, dan error di server side
     Route::post('validate-and-save-account', [AccountController::class, 'setNewDataAccount'])->name('validate_and_save_account');
+
+    Route::get('/switch-account', [AccountController::class, 'getSwitchAccountPage'])->name('switch_account_page');
 });
 
 Route::prefix('timeline')->group(function(){
@@ -52,6 +56,7 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
     Route::post('save-comment-postingan/{idPostingan}', [CommentController::class, 'setNewDataComment'])->name('save_comment_post');
+    Route::get('saved', [ProfileController::class, 'getSavedPage'])->name('saved_post');
 });
 
 Route::middleware('optimizeImages')->group(function () {

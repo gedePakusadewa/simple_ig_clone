@@ -34,5 +34,17 @@ class Liked extends Model
         return Liked::where('account_id', '=', $account_id)->get();
     }
 
+    static function checkPostinganIsLikedByAccount($postingan_id, $account_id){
+        return Liked::where('postingan_id', '=', $postingan_id)
+        ->where('account_id', '=', $account_id)
+        ->exists();
+    }
+
+    static function deleteLikedDataByAccount($postingan_id, $account_id){
+        return Liked::where('postingan_id', '=', $postingan_id)
+        ->where('account_id', '=', $account_id)
+        ->delete();
+    }
+
     
 }

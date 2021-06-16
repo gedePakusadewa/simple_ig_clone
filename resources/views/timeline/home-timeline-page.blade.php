@@ -24,6 +24,7 @@
 							</a>
 							<a href = "" class = "p-2"><i class='far fa-comment' style = "font-size:23px; color:black;"></i></a>
 							<a href = "" class = "p-2"><i class='fas fa-location-arrow' style = "font-size:20px; color:black;"></i></a>
+							<a href = "" class = "p-2" style = "float:right"><i class='far fa-bookmark' style = "font-size:20px; color:black;"></i></a>
 						</div>
 						<div>
 						  @if($post->totalLiked === 0)

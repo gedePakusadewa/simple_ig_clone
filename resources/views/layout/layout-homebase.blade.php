@@ -42,6 +42,14 @@
 			 .icon-float{
 				 float:left;
 			 }
+
+			.under-development{
+			  background-color:#FCAF45;
+			  text-align:center;
+			  border-radius:4px;
+			  padding:10px 5px;	
+			}
+
 		</style>
 	</head>
 	<body class = "container-body-template">
@@ -90,9 +98,9 @@
 								</div>
 								<div id="account-submenu" class="hidden-submenu">
 									<div><a href="{{route('profile_page', ['account_name' => session('account_username')])}}">Profile</a></div>
-									<div><a href="">Saved</a></div>
+									<div><a href="{{route('saved_post', ['account_name' => session('account_username')])}}">Saved</a></div>
 									<div><a href="{{route('updt_account_pge')}}">Settings</a></div>
-									<div><a href="">Switch Account</a></div>
+									<div><a href="{{route('switch_account_page')}}">Switch Account</a></div>
 									<div style = "border-top:1px solid #dbdbdb;"><a href="{{route('logout')}}">Log Out</a></div>
 								</div>
 							</div>	
@@ -104,7 +112,6 @@
 		<div class = "body-margin-top-fixed-bar">
 			@yield('content')
 		</div>
-		<a href = "{{route('upload_pg', ['account_name' => session('account_username')])}}">Add Post</a>
 	</body>
 
 	<script>
