@@ -61,7 +61,7 @@
 					</a>
 				</div>
 				<div class="p-2">
-					<form action = "{{route('account_search_rslt')}}" method = "post">
+					<form id = "searchForm" action = "{{route('account_search_rslt')}}" method = "post">
 						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "search" style = "text-align:center;"/>
 					</form>
@@ -71,7 +71,16 @@
 							<div>Clear All</div>
 						</div>
 						<div class = "modal-dialog-scrollable">
-							<div class = "modal-body">
+							<div id = "modalContent" class = "modal-body">
+								<div class = "d-flex flex-row ">
+									<div class = "pr-2">
+										<img style = "border-radius: 50%;" src = "/photo-profile/deltagamma-profile.jpg" width = "40"/>
+									</div>
+									<div class = "d-flex flex-column">
+										<div class = "font-weight-bold">UIUOUOUOI</div>
+										<div>12123123123</div>
+									</div>
+								</div>
 								<div>1</div>
 								<div>2</div>
 								<div>3</div>
@@ -114,6 +123,11 @@
 		</div>
 	</body>
 
+	<script src = "https://code.jquery.com/jquery-2.2.4.min.js"
+		  integrity = "sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		  crossorigin = "anonymous">
+  	</script>
+
 	<script>
 
 		window.addEventListener('load', function(){	
@@ -132,7 +146,49 @@
 				}
 				//window.history.pushState(nextState, nextTitle, nextURL);
 			});
+
+			document.getElementById('inputSearch').addEventListener('keyup', function(){
+				document.getElementById('modalSearch').style.display === "";
+				let chatData = document.forms['searchForm']['keyword'].value;
+				getDataFromServer(chatData);
+			});
 		});
+
+		function getDataFromServer(keywords){
+			$.ajax({
+				url: '/get-search-result',
+				type: 'get',
+				data: { 
+					keywords : '' + keywords
+				},
+
+				success:function(dataServer){
+					//console.log(dataServer);
+					setNewDataModalSearch(dataServer);
+				},
+				error: function(){alert('error');}, 
+			});  
+		}
+
+		function setNewDataModalSearch(dataServer){
+		  let dta = JSON.parse(dataServer);
+		  let dataViewModalSearch = "";
+		  for(var i = 0; i < dta.length; i++) {
+		    let obj = dta[i];
+			//console.log(obj.username);
+			dataViewModalSearch += 
+			"<div class = 'd-flex flex-row '>"+
+				"<div class = 'pr-2'>"+
+					"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+				"</div>"+
+				"<div class = 'd-flex flex-column'>"+
+					"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
+					"<div>" + obj.full_name + "</div>"+
+				"</div>"+
+			"</div>";
+		  }
+		  document.getElementById('modalContent').innerHTML = dataViewModalSearch;
+		}
 			 
 		function dropSubmenu(idSubmenu){
 			var statusDisplay = document.getElementById(idSubmenu); 

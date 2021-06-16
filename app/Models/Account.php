@@ -33,7 +33,8 @@ class Account extends Model
     }
 
     static function getAccountSearchResult($keyword){
-        return Account::where('username', 'LIKE', '%'.$keyword.'%')
+        return Account::select('username', 'selfie_path', 'id', 'full_name')
+                ->where('username', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('full_name', 'LIKE', '%'.$keyword.'%')
                 ->get();
     }
