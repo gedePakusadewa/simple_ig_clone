@@ -50,6 +50,18 @@
 			  padding:10px 5px;	
 			}
 
+			a.account-link:link, a.account-link:visited, a.account-link:hover, a.account-link:active {
+			  color: black;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+
+			a.account-modal-search-link:link, a.account-modal-search-link:visited, a.account-modal-search-link:hover, a.account-modal-search-link:active {
+			  color: black;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+
 		</style>
 	</head>
 	<body class = "container-body-template">
@@ -72,24 +84,6 @@
 						</div>
 						<div class = "modal-dialog-scrollable">
 							<div id = "modalContent" class = "modal-body">
-								<div class = "d-flex flex-row ">
-									<div class = "pr-2">
-										<img style = "border-radius: 50%;" src = "/photo-profile/deltagamma-profile.jpg" width = "40"/>
-									</div>
-									<div class = "d-flex flex-column">
-										<div class = "font-weight-bold">UIUOUOUOI</div>
-										<div>12123123123</div>
-									</div>
-								</div>
-								<div>1</div>
-								<div>2</div>
-								<div>3</div>
-								<div>4</div>
-								<div>5</div>
-								<div>6</div>
-								<div>7</div>
-								<div>8</div>
-								<div>9</div>
 							</div>
 						</div>
 					</div>
@@ -176,16 +170,19 @@
 		  for(var i = 0; i < dta.length; i++) {
 		    let obj = dta[i];
 			//console.log(obj.username);
-			dataViewModalSearch += 
-			"<div class = 'd-flex flex-row '>"+
-				"<div class = 'pr-2'>"+
-					"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+
+			dataViewModalSearch +=
+			 "<a class = 'account-modal-search-link' href = '/" + obj.username + "'>"+ 
+				"<div class = 'd-flex flex-row'>"+
+					"<div class = 'pr-2'>"+
+						"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+					"</div>"+
+					"<div class = 'd-flex flex-column'>"+
+						"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
+						"<div>" + obj.full_name + "</div>"+
+					"</div>"+
 				"</div>"+
-				"<div class = 'd-flex flex-column'>"+
-					"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
-					"<div>" + obj.full_name + "</div>"+
-				"</div>"+
-			"</div>";
+			"</a>";
 		  }
 		  document.getElementById('modalContent').innerHTML = dataViewModalSearch;
 		}
