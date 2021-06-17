@@ -28,12 +28,11 @@
 
 			 .body-margin-top-fixed-bar{
 				margin-top : 80px;
-				border:1px solid black;
 			 }
 
 			 .fixed-sidebar-timeline{
 				position:fixed;
-				left:62%;
+				left:63%;
 			 }
 
 			 body{
