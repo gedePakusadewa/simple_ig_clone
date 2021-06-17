@@ -16,7 +16,7 @@
 				 position:absolute;
 				 background-color:white;
 				 padding:5px 10px 5px 9px;
-				 width:190px;
+				 width:220px;
 				 z-index:1;
 				 border-radius: 3px;
 				 border:1px solid #dbdbdb;
@@ -28,6 +28,7 @@
 
 			 .body-margin-top-fixed-bar{
 				margin-top : 80px;
+				border:1px solid black;
 			 }
 
 			 .fixed-sidebar-timeline{
@@ -65,46 +66,47 @@
 		</style>
 	</head>
 	<body class = "container-body-template">
-		<div class = "fixed-top " style = "background-color:white; border-bottom:1px solid #dbdbdb;">
+		<div class = "fixed-top pt-1" style = "background-color:white; border-bottom:1px solid #dbdbdb;">
 			<div class="d-flex justify-content-between container-body-template">
-				<div class="p-2">
+				<div class="pt-2">
 					<a href = "{{route('home_timeline_page')}}">
-						<img style = "" src = "/icon/font-only-ig.png" alt = "instagram logo" width = "115px" />
+						<img src = "/icon/font-only-ig.png" alt = "instagram logo" width = "115px" />
 					</a>
 				</div>
-				<div class="p-2">
+				<div class="pt-2">
 					<form id = "searchForm" action = "{{route('account_search_rslt')}}" method = "post">
 						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
-						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "search" style = "text-align:center;"/>
+						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "Search" style = "text-align:center; background-color:#fafafa; border:1px solid #dbdbdb; font-size:14px; height:28px; border-radius:3px;"/> 
 					</form>
-					<div id = "modalSearch" class="hidden-submenu" style = "height:200px; width:300px; border:2px solid #dbdbdb; border-radius:5px; background-color:white; padding:5px ">
+					<div id = "modalSearch" class="hidden-submenu" style = "height:400px; width:400px; border:1px solid #dbdbdb; border-radius:5px; background-color:white; padding:5px ">
 			 			<div class = "d-flex justify-content-between">
-			 				<div>Recent</div>
-							<div>Clear All</div>
+			 				<div class = "pt-1 pl-2"><strong>Recent</strong></div>
+							<div class = "pt-1 pr-2">Clear All</div>
 						</div>
 						<div class = "modal-dialog-scrollable">
-							<div id = "modalContent" class = "modal-body">
+							<div id = "modalContent" class = "modal-body d-flex flex-column">
+								<div style = "color:#fefefe">No recent searches.</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="p-1" style = "background-color:white;">
+				<div style = "background-color:white; padding-bottom:10px;">
 					<div class="d-flex justify-content-end">
-						<div class = "p-2"><a href = "{{route('home_timeline_page')}}"><i class="material-icons" style = "font-size:30px; color:black;">home</i></a></div>
-						<div class = "p-2"><a href = "{{route('home_inbox_page')}}"><i class='fab fa-facebook-messenger' style = "font-size:23px;  color:black;"></i></a></div>
-						<div class = "p-2"><a href = "{{route('home_explore_page')}}"><i class="material-icons" style = "font-size:27px;  color:black;">explore</i></a></div>
-						<div class = "p-2"><i class='far fa-heart' style = "font-size:23px;  color:black;"></i></div>
-						<div class = "p-2">
+						<div><a href = "{{route('home_timeline_page')}}"><i class="material-icons" style = "font-size:30px; color:black; padding-top:5px;">home</i></a></div>
+						<div><a href = "{{route('home_inbox_page')}}"><i class='fab fa-facebook-messenger' style = "font-size:23px; color:black; padding-top:9px; padding-left:17px;"></i></a></div>
+						<div><a href = "{{route('home_explore_page')}}"><i class="material-icons" style = "font-size:26px;  color:black; padding-top:7px; padding-left:17px;">explore</i></a></div>
+						<div><i class='far fa-heart' style = "font-size:23px; color:black; padding-top:9px; padding-left:17px;"></i></div>
+						<div style = "padding-top:7px; padding-left:17px;">
 							<div id = "container-dropdown-account">
 								<div>
 									<a href="javascript:void(0)" onclick = "dropSubmenu('account-submenu')"><img style = "border-radius: 50%;" src = "{{session('account_img_path')}}" width = "25px" /></a>
 								</div>
 								<div id="account-submenu" class="hidden-submenu">
-									<div><a href="{{route('profile_page', ['account_name' => session('account_username')])}}">Profile</a></div>
-									<div><a href="{{route('saved_post', ['account_name' => session('account_username')])}}">Saved</a></div>
-									<div><a href="{{route('updt_account_pge')}}">Settings</a></div>
-									<div><a href="{{route('switch_account_page')}}">Switch Account</a></div>
-									<div style = "border-top:1px solid #dbdbdb;"><a href="{{route('logout')}}">Log Out</a></div>
+									<div style = "padding-bottom:5px;"><a class = "account-link" href="{{route('profile_page', ['account_name' => session('account_username')])}}"><i class='far fa-user-circle' style='font-size:19px; padding-right:8px;'></i>Profile</a></div>
+									<div style = "padding-bottom:5px;"><a class = "account-link" href="{{route('saved_post', ['account_name' => session('account_username')])}}"><i class='far fa-bookmark' style = "font-size:18px; padding-right:8px; padding-left:2px;"></i>Saved</a></div>
+									<div style = "padding-bottom:5px;"><a class = "account-link" href="{{route('updt_account_pge')}}"><i class="material-icons" style = "font-size:18px; padding-right:7px;">settings</i>Settings</a></div>
+									<div style = "padding-bottom:5px;"><a class = "account-link" href="{{route('switch_account_page')}}"><i class="material-icons" style = "font-size:18px; padding-right:7px;">compare_arrows</i>Switch Account</a></div>
+									<div style = "border-top:1px solid #dbdbdb; padding:5px 0px;"><a class = "account-link" href="{{route('logout')}}">Log Out</a></div>
 								</div>
 							</div>	
 						</div>
@@ -172,17 +174,19 @@
 			//console.log(obj.username);
 
 			dataViewModalSearch +=
-			 "<a class = 'account-modal-search-link' href = '/" + obj.username + "'>"+ 
-				"<div class = 'd-flex flex-row'>"+
-					"<div class = 'pr-2'>"+
-						"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+			"<div>"+
+				"<a class = 'account-modal-search-link pt-2' href = '/" + obj.username + "'>"+ 
+					"<div class = 'd-flex flex-row'>"+
+						"<div class = 'pr-2'>"+
+							"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+						"</div>"+
+						"<div class = 'd-flex flex-column'>"+
+							"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
+							"<div class = 'text-secondary'>" + obj.full_name + "</div>"+
+						"</div>"+
 					"</div>"+
-					"<div class = 'd-flex flex-column'>"+
-						"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
-						"<div>" + obj.full_name + "</div>"+
-					"</div>"+
-				"</div>"+
-			"</a>";
+				"</a>"+
+			"</div>";
 		  }
 		  document.getElementById('modalContent').innerHTML = dataViewModalSearch;
 		}
