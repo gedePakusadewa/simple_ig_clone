@@ -36,13 +36,20 @@
 						<div style = "padding:7px 10px">
 							<a class = "account-link" href = "{{route('profile_page', ['account_name' => $post->username])}}"><strong>{{$post->username}}</strong></a> {{$post->caption}}
 						</div>
+						<div>
+						  @if($post->totalComment > 0)
+						    View all {{$post->totalComment}} comments
+						  @endif
+						</div>
+						<div>
+							<a class = "account-link" href = ""><strong>{{$post->oneLastAccountComment}}</strong></a> {{$post->oneLastComment}}
+						</div>
 						<div style = "padding:7px 10px">{{$post->when_its_uploaded}}</div>
 						<div style = "border-top: 1px solid #dbdbdb; padding:10px 0;">
-							<form method = "post" id = "commentForm">
-								<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />   
-								<input type = "hidden" name = "username" value = "{{$post->username}}" />
+							<form action = "{{route('save_comment', ['account_name' => session('account_username')])}}" method = "post" id = "commentForm">
+								<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 								<input type = "hidden" name = "postingan_id" value = "{{$post->id}}" />
-								<i class='far fa-smile' style='text-align:center; font-size:24px; width:10%; '></i>
+								<i class='far fa-smile' style='text-align:center; font-size:24px; width:10%;'></i>
 								<input style = "width:69%;"  type = "text" name = "comment" placeholder = "Add a comment"/>
 								<input style = "width:12%;"type = "submit" id = "buttonComment" class="btn btn-primary" value = "Post" />
 							</form>
@@ -112,51 +119,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
 
-	<script>
-		$(document).ready(function () {
-			$("#buttonComment").click(function (event) {
-
-				//stop submit the form, we will post it manually.
-				event.preventDefault();
-
-				// Get form
-				var form = $('#commentForm')[0];
-
-				// Create an FormData object 
-				var data = new FormData(form);
-				console.log(data.get('username'));
-
-				// disabled the submit button
-				// $("#buttonComment").prop("disabled", true);
-
-				// $.ajax({
-				// 	type: "POST",
-				// 	url: "/",
-				// 	data: data,
-				// 	processData: false,
-				// 	contentType: false,
-				// 	cache: false,
-				// 	timeout: 800000,
-				// 	success: function (data) {
-
-				// 		// $("#output").text(data);
-				// 		// console.log("SUCCESS : ", data);
-				// 		// $("#btnSubmit").prop("disabled", false);
-				// 		console.log('sukses');
-
-				// 	},
-				// 	error: function (e) {
-				// 		console.log('gagal');
-				// 		// $("#output").text(e.responseText);
-				// 		// console.log("ERROR : ", e);
-				// 		// $("#btnSubmit").prop("disabled", false);
-
-				// 	}
-				// });
-
-			});
-
-		});		
+	<script>	
 	</script>
 
 @endsection

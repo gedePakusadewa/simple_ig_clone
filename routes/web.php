@@ -60,11 +60,12 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
     Route::post('save-comment-postingan/{idPostingan}', [CommentController::class, 'setNewDataComment'])->name('save_comment_post');
     Route::get('saved', [ProfileController::class, 'getSavedPage'])->name('saved_post');
+    Route::post('save-comment', [CommentController::class, 'setNewCommentData'])->name('save_comment');
 });
 
 Route::middleware('optimizeImages')->group(function () {
     // all images will be optimized automatically
-    Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
+    Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post_img');
 });
 
 Route::prefix('direct')->group(function (){

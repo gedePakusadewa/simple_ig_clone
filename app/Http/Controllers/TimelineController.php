@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use App\Http\Traits\UsersSessionTrait;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Traits\CookieTrait;
+use App\Models\CommentReply;
 
 class TimelineController extends Controller
 {
@@ -25,15 +26,14 @@ class TimelineController extends Controller
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
             $data = $this->getWhatPostinganIdAccountLiked($data);
             $data = $this->getTotaLikedForOnePostinganId($data);
+            $data = $this->getOneLastCommentPerPostingan($data);
             return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id'))), 'suggestionData' => Account::getLimitedData(5)]);
         }else{
             return redirect()->route('login_page');
         }
 
-        // $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
-        // // $this->getWhatPostinganIdAccountLiked($data);
-        // //dd($data);
-        // $this->getTotaLikedForOnePostinganId($data);
+        // $data = Postingan::getAllFollowerPostinganIncludedHimSelf(1);
+        // dd($this->getOneLastCommentPerPostingan($data));
     }
 
     private function getHowLongUploadedVideo($data){
@@ -61,5 +61,24 @@ class TimelineController extends Controller
         } 
        return $data;
     }
+
+  private function getOneLastCommentPerPostingan($data){
+    $incre = 0;
+    foreach($data as $item){
+      $dta = CommentReply::getLastCommnent($item->id);
+      if($dta->isNotEmpty()){
+        $totalComment = CommentReply::getTotalNumberOfComment($item->id);
+        //$tes = $dta->account_id;
+        $userThatComment = Account::getOneData('id', $dta[0]->account_id);
+        $item->oneLastComment = $dta[0]->comment;
+        $item->oneLastAccountComment = $userThatComment->username;
+        $item->totalComment = $totalComment;
+        //dd($dta[0]);
+      }
+      //echo $dta->account_id;
+    } 
+    return $data;
+    //var_dump(CommentReply::getLastCommnent(6)->isNotEmpty());
+  }
     
 }
