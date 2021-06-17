@@ -5,7 +5,7 @@ Welcome to my simple project. This project is a simple replication of the web-ba
 This project uses several technologies including the PHP programming language (ver 8.-), Laravel framework (ver 8.-), javascript, HTML, CSS, sql, PostgreSQL databases, Visual Studio Code, and Ubuntu OS (ver 20 .- LTS).
 
 This project can be accessed at the following link: http://simple-ig-clone.herokuapp.com/
-But for now, i will block access to this link. If you want to know more, please e-mail me at tioktanying@gmail.com
+But for now, you only can login using existed account `deltagamma`.
 
 ---
 
