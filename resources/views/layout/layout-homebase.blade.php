@@ -3,7 +3,7 @@
 	<head>
 		<title>Homepage Login</title>
 		<meta charset = "utf-8" />
-		<meta name = "viewport" content = "width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -18,19 +18,28 @@
 				 padding:5px 10px 5px 9px;
 				 width:220px;
 				 z-index:1;
-				 border-radius: 3px;
+				 border-radius:3px;
 				 border:1px solid #dbdbdb;
 			 }
 
 			 .container-body-template{
-				 margin:0 15%;
+			   margin:0 4%;
+			 }
+
+			 .left-home-timeline{
+			   width:100%;	
+			 }
+
+			 .right-home-timeline{
+			   width:0%;	
 			 }
 
 			 .body-margin-top-fixed-bar{
-				margin-top : 80px;
+				margin-top : 60px;
 			 }
 
 			 .fixed-sidebar-timeline{
+				display:none;
 				position:fixed;
 				left:63%;
 			 }
@@ -62,9 +71,67 @@
 			  display: inline-block;
 			}
 
+			.display-search-navbar{
+		      display:none;
+			}
+
+			.post-card-timeline{
+			  width:100%;
+			  border:1px solid #dbdbdb;
+			}
+
+			.comment-section-timeline{
+			  display:none;
+			  border-top: 1px solid #dbdbdb;
+			  padding:10px 0;	
+			}
+
+			@media only screen and (min-width: 600px) {
+			  .display-search-navbar{
+			    display:block;
+			  }
+
+			  .post-card-timeline{
+			   width:620px;
+			  }
+
+			  .container-body-template{
+				margin:0 6%;
+			  }
+
+			  .body-margin-top-fixed-bar{
+		        margin-top : 80px;
+			  }
+
+			  .comment-section-timeline{
+			    display:block;
+			  }
+			}
+
+			@media only screen and (min-width: 1308px) {
+			  .fixed-sidebar-timeline{
+			    display:block;
+			  }	
+
+			  .container-body-template{
+				margin:0 15%;
+			  }
+
+			  .left-home-timeline{
+			   width:70%;	
+			 }
+
+			 .right-home-timeline{
+			   width:30%;	
+			 }
+
+			 
+			}
+
 		</style>
 	</head>
 	<body class = "container-body-template">
+		
 		<div class = "fixed-top pt-1" style = "background-color:white; border-bottom:1px solid #dbdbdb;">
 			<div class="d-flex justify-content-between container-body-template">
 				<div class="pt-2">
@@ -72,8 +139,8 @@
 						<img src = "/icon/font-only-ig.png" alt = "instagram logo" width = "115px" />
 					</a>
 				</div>
-				<div class="pt-2">
-					<form id = "searchForm" action = "{{route('account_search_rslt')}}" method = "post">
+				<div class="pt-2 display-search-navbar">
+					<form id = "searchForm" action = "">
 						<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 						<input id = "inputSearch" autocomplete="off" type = "text" name = "keyword" placeholder = "Search" style = "text-align:center; background-color:#fafafa; border:1px solid #dbdbdb; font-size:14px; height:28px; border-radius:3px;"/> 
 					</form>
@@ -113,6 +180,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class = "body-margin-top-fixed-bar">
 			@yield('content')
 		</div>
@@ -146,6 +214,10 @@
 				document.getElementById('modalSearch').style.display === "";
 				let chatData = document.forms['searchForm']['keyword'].value;
 				getDataFromServer(chatData);
+			});
+
+			document.getElementById('searchForm').addEventListener('submit', function(e){
+				e.preventDefault();
 			});
 		});
 

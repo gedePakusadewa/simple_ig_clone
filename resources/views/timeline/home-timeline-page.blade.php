@@ -2,10 +2,10 @@
 
 @section('content')
 	<div class = "d-flex flex-row">
-		<div style = "width:70%;">
+		<div class = "left-home-timeline">
 			@if(!empty($data))
 				@foreach($data as $post)
-					<div class="card mt-2" style="width:620px; border:1px solid #dbdbdb;">
+					<div class="card mt-2 post-card-timeline">
 						<div class = "p-3">
 							<a class = "account-link" href = "{{route('profile_page', ['account_name' => $post->username])}}"><img style = "border-radius: 50%;" src = "{{$post->selfie_path}}" width = "35px" /><strong style = "padding-left:10px;">{{$post->username}}</strong></a>
 						</div>
@@ -47,7 +47,7 @@
 							<a class = "account-link" href = ""><strong>{{$post->oneLastAccountComment}}</strong></a> {{$post->oneLastComment}}
 						</div>
 						<div style = "padding:5px 10px" class = "text-secondary">{{$post->when_its_uploaded}}</div>
-						<div style = "border-top: 1px solid #dbdbdb; padding:10px 0;">
+						<div class = "comment-section-timeline">
 							<form action = "{{route('save_comment', ['account_name' => session('account_username')])}}" method = "post" id = "commentForm">
 								<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 								<input type = "hidden" name = "postingan_id" value = "{{$post->id}}" />
@@ -63,7 +63,7 @@
 				<h3>Data is not set</h3>
 			@endif
 		</div>
-		<div style = "width:22%;" class = "fixed-sidebar-timeline">
+		<div class = "fixed-sidebar-timeline right-home-timeline">
 			<div style = "margin-top:10px;">
 				@if(!empty($userData))
 					<div class = "d-flex flex-row text-body" >
