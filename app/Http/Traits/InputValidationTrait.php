@@ -7,13 +7,19 @@ use App\Models\Account;
 
 trait InputValidationTrait {
 
+    public function __construct(Account $account){
+        $this->account = $account;
+    }
+
     public function isUsernameExist($username){
-        $data = Account::getOneData('username', $username);
+        // $data = Account::getOneData('username', $username);
+        $data = $this->account::where('username', $username)->first();
         return $data !== null ? true : false;
     }
 
     public function isPasswordExist($pwd){
-        $data = Account::getOneData('password', $pwd);
+        // $data = Account::getOneData('password', $pwd);
+        $data = $this->account::where('password', $pwd)->first();
         return $data !== null ? true : false;
     }
 

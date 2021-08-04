@@ -35,5 +35,7 @@ class CommentReply extends Model
         return CommentReply::where('postingan_id', '=', $postinganId)->count();
     }
 
+    
+
 
 }

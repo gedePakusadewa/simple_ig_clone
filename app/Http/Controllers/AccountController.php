@@ -19,11 +19,16 @@ class AccountController extends Controller
     use InputValidationTrait;
     use CookieTrait;
 
-  public function processSpecialLogin(){
-    $this->setNewSession("deltagamma");
-    $this->setCookies();
-    return redirect()->route('home_timeline_page');
-  }
+    public function __construct(Account $account, Follower $follower){
+        $this->account = $account;
+        $this->follower = $follower;
+    }
+
+    public function processSpecialLogin(){
+        $this->setNewSession("deltagamma");
+        // $this->setCookies();
+        return redirect()->route('home_timeline_page');
+    }
 
     public function getLogInPage(Request $request){
         //Account::addSampleData();
@@ -62,7 +67,7 @@ class AccountController extends Controller
 
         if($this->canThisLogIn($username, $pwd)){
             $this->setNewSession($username);
-            $this->setCookies();
+            // $this->setCookies();
             return redirect()->route('home_timeline_page');
         }else{
             //return view('account.login-page', ['notif' => "Please fill it correctly."]);
@@ -88,8 +93,21 @@ class AccountController extends Controller
         $fullname = $this->filterBasicInput($request->input('fullname'));
 
         if($this->canThisSignUp($email, $fullname, $username, $pwd)){
-            $data = Account::addNewData($username, $pwd, '-', $email, $fullname, '-', '-');
-            Follower::addNewData($data->id, $data->id);
+            // $data = Account::addNewData($username, $pwd, '-', $email, $fullname, '-', '-');
+            $data = $this->account::create([
+                'username' => $username, 
+                'password'  => $pwd, 
+                'phone_number' => "-", 
+                'email'  => $email, 
+                'full_name' => $fullname, 
+                'selfie_path'  => "-", 
+                'status'  => "-"
+            ]);
+            $this->follower::create([
+                'member_id' => $data->id,
+                'follower_id' => $data->id
+            ]);
+            // Follower::addNewData($data->id, $data->id);
             $this->setNewSession($username);
             return redirect()->route('home_timeline_page');
         }else{
@@ -101,7 +119,7 @@ class AccountController extends Controller
 
     public function getLogOut(Request $request){
         $request->session()->flush();
-        $this->setExpiredCookie();
+        // $this->setExpiredCookie();
         return redirect()->route('login_page');
     }
 
@@ -111,12 +129,15 @@ class AccountController extends Controller
     }
 
     private function setNewSession($username){
-        $data = Account::getOneData('username', $username);
+        // $data = Account::getOneData('username', $username);
+        $data = $this->account::where('username', $username)->first();
         session(['account_username' => $username, 'account_id' => strval($data->id), 'account_img_path' =>$data->selfie_path]);
+        // dd(session('account_username'));
     }
 
     private function setNewSessionForCookie($user_id){
-        $data = Account::getOneData('id', $user_id);
+        // $data = Account::getOneData('id', $user_id);
+        $data = $this->account::find($user_id)->first();
         session(['account_username' => $data->username, 'account_id' => strval($data->id)]);
     }
 

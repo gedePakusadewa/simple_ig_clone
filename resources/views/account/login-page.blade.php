@@ -70,7 +70,7 @@
 						</form>
 					</div>
 					<div style = "margin: 10px 0; padding:20px 0; text-align:center; border:1px solid #dbdbdb; background-color:white;">
-						Don't have an account? <a href = "">Sign up</a>
+						Don't have an account? <a href = "{{route('sign_up_page')}}">Sign up</a>
 					</div>
 				</div>
 			</div>

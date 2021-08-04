@@ -224,7 +224,7 @@
 		function getDataFromServer(keywords){
 			$.ajax({
 				url: '/get-search-result',
-				type: 'get',
+				method: 'get',
 				data: { 
 					keywords : '' + keywords
 				},
@@ -242,22 +242,22 @@
 		  let dataViewModalSearch = "";
 		  for(var i = 0; i < dta.length; i++) {
 		    let obj = dta[i];
-			//console.log(obj.username);
+			console.log(obj.username);
 
-			dataViewModalSearch +=
-			"<div>"+
-				"<a class = 'account-modal-search-link pt-2' href = '/" + obj.username + "'>"+ 
-					"<div class = 'd-flex flex-row'>"+
-						"<div class = 'pr-2'>"+
-							"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
-						"</div>"+
-						"<div class = 'd-flex flex-column'>"+
-							"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
-							"<div class = 'text-secondary'>" + obj.full_name + "</div>"+
-						"</div>"+
-					"</div>"+
-				"</a>"+
-			"</div>";
+			// dataViewModalSearch +=
+			// "<div>"+
+			// 	"<a class = 'account-modal-search-link pt-2' href = '/" + obj.username + "'>"+ 
+			// 		"<div class = 'd-flex flex-row'>"+
+			// 			"<div class = 'pr-2'>"+
+			// 				"<img style = 'border-radius: 50%;' src = '" + obj.selfie_path + "' width = '40'/>"+
+			// 			"</div>"+
+			// 			"<div class = 'd-flex flex-column'>"+
+			// 				"<div class = 'font-weight-bold'>" + obj.username + "</div>"+
+			// 				"<div class = 'text-secondary'>" + obj.full_name + "</div>"+
+			// 			"</div>"+
+			// 		"</div>"+
+			// 	"</a>"+
+			// "</div>";
 		  }
 		  document.getElementById('modalContent').innerHTML = dataViewModalSearch;
 		}

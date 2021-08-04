@@ -21,7 +21,8 @@ class TimelineController extends Controller
     use CookieTrait;
 
     public function getHomeTimelinePage(Request $request){
-  
+          
+        //Follower::addNewSampleData();
         if($this->isSessionExists($request, 'account_username')){
             $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
             $data = $this->getWhatPostinganIdAccountLiked($data);
@@ -31,6 +32,9 @@ class TimelineController extends Controller
         }else{
             return redirect()->route('login_page');
         }
+
+
+        // Account::addNewData();
 
         // $data = Postingan::getAllFollowerPostinganIncludedHimSelf(1);
         // dd($this->getOneLastCommentPerPostingan($data));

@@ -8,8 +8,13 @@ use App\Models\Postingan;
 
 class ExploreController extends Controller
 {
+    public function __construct(Postingan $postingan, Account $account){
+        $this->postingan = $postingan;
+        $this->account = $account;
+    }
+
     public function getHomeExplore(){
-        return view('explore.home-explore-page', ['exploreData' => Postingan::getAllDataLiterally()]);
+        return view('explore.home-explore-page', ['exploreData' => $this->postingan::all()]);
     }
 
     public function getAccountSearchResult(Request $request){

@@ -11,7 +11,6 @@ class Account extends Model
     protected $table = 'accounts';
     protected $fillable = ['id', 'created_at', 'username', 'password', 'phone_number', 'email', 'full_name', 'selfie_path', 'status'];
 
-
     static function addNewData($username, $password, $phone_number, $email, $full_name, $selfie_path, $status){
         return Account::create([
             'username' => $username, 
@@ -42,4 +41,6 @@ class Account extends Model
     static function getLimitedData($numberRow){
         return Account::limit($numberRow)->get();
     }
+    
+    
 }

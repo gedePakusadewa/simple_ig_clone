@@ -72,8 +72,8 @@ Route::prefix('direct')->group(function (){
     Route::get('inbox', [InboxController::class, 'getHomeInboxPage'])->name('home_inbox_page');
 });
 
-Route::fallback(function(){
-	//https://laravel.com/docs/8.x/routing#fallback-routes
-	return redirect()->route('login_page');
-    //selanjutne tentukan kla nganggo error page ato dialihkan kehalaman tertentu gen untuk fallback function
-});
+// Route::fallback(function(){
+// 	//https://laravel.com/docs/8.x/routing#fallback-routes
+// 	return redirect()->route('login_page');
+//     //selanjutne tentukan kla nganggo error page ato dialihkan kehalaman tertentu gen untuk fallback function
+// });
