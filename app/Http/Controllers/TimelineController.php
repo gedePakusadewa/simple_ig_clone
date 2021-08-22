@@ -20,15 +20,23 @@ class TimelineController extends Controller
     use UsersSessionTrait;
     use CookieTrait;
 
+    public function __construct(Liked $liked, Postingan $postingan, CommentReply $commentReply, Account $account){
+        $this->liked = $liked;
+        $this->postingan = $postingan;
+        $this->commentReply = $commentReply;
+        $this->account = $account;
+    }
+
     public function getHomeTimelinePage(Request $request){
           
         //Follower::addNewSampleData();
         if($this->isSessionExists($request, 'account_username')){
-            $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
+            // $data = Postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')));
+            $data = $this->postingan::getAllFollowerPostinganIncludedHimSelf(intval(session('account_id')))->get();
             $data = $this->getWhatPostinganIdAccountLiked($data);
             $data = $this->getTotaLikedForOnePostinganId($data);
             $data = $this->getOneLastCommentPerPostingan($data);
-            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => Account::getOneData('id', intval(session('account_id'))), 'suggestionData' => Account::getLimitedData(5)]);
+            return view('timeline.home-timeline-page', ['data' => $this->getHowLongUploadedVideo($data), 'userData' => $this->account::getOneData('id', intval(session('account_id'))), 'suggestionData' => $this->account::getLimitedData(5)]);
         }else{
             return redirect()->route('login_page');
         }
@@ -52,7 +60,8 @@ class TimelineController extends Controller
 
     //i use this approach that adding another table result after join three tables before because i dont really sure i can join 4 or more table. This will be my next fix
     private function getWhatPostinganIdAccountLiked($data){
-        $dtaLiked = Liked::getPostinganIdLikedByAccount(session('account_id'));
+        // $dtaLiked = Liked::getPostinganIdLikedByAccount(session('account_id'));
+        $dtaLiked = $this->liked::getPostinganIdLikedByAccount(session('account_id'));
         foreach($data as $item){
             $item->alreadyLiked = $dtaLiked->contains('postingan_id', $item->id) ? true : false;
         } 
@@ -61,7 +70,8 @@ class TimelineController extends Controller
 
     private function getTotaLikedForOnePostinganId($data){
         foreach($data as $item){
-            $item->totalLiked = Liked::getTotalPostinganLikedPerId($item->id);
+            // $item->totalLiked = Liked::getTotalPostinganLikedPerId($item->id);
+            $item->totalLiked = $this->liked::getTotalPostinganLikedPerId($item->id);
         } 
        return $data;
     }
@@ -69,11 +79,12 @@ class TimelineController extends Controller
   private function getOneLastCommentPerPostingan($data){
     $incre = 0;
     foreach($data as $item){
-      $dta = CommentReply::getLastCommnent($item->id);
+    //   $dta = CommentReply::getLastCommnent($item->id);
+      $dta = $this->commentReply::getLastComment($item->id);
       if($dta->isNotEmpty()){
-        $totalComment = CommentReply::getTotalNumberOfComment($item->id);
+        $totalComment = $this->commentReply::getTotalNumberOfComment($item->id);
         //$tes = $dta->account_id;
-        $userThatComment = Account::getOneData('id', $dta[0]->account_id);
+        $userThatComment = $this->account::getOneData('id', $dta[0]->account_id);
         $item->oneLastComment = $dta[0]->comment;
         $item->oneLastAccountComment = $userThatComment->username;
         $item->totalComment = $totalComment;

@@ -13,7 +13,7 @@ class DataController extends Controller
   }
 
   public function getDataSearchResutl(){
-    $dataServer = Account::getAccountSearchResult($_GET['keywords']);
+    $dataServer = $this->account::getAccountSearchResult($_GET['keywords']);
     header('Content-Type: application/json');
     echo json_encode($dataServer);
   }

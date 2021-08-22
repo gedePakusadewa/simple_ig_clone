@@ -7,7 +7,7 @@
 				@foreach($data as $post)
 					<div class="card mt-2 post-card-timeline">
 						<div class = "p-3">
-							<a class = "account-link" href = "{{route('profile_page', ['account_name' => $post->username])}}"><img style = "border-radius: 50%;" src = "{{$post->selfie_path}}" width = "35px" /><strong style = "padding-left:10px;">{{$post->username}}</strong></a>
+							<a class = "account-link" href = "{{route('profile_page', ['account_name' => $post->username])}}"><img style = "border-radius: 50%;" src = "{{$post->selfie_path}}" width = "35px" /><strong style = "padding-left:10px;">{{ $post->username }}</strong></a>
 						</div>
 						
 						<!-- seberarnya makek asset fitur laravel, tapi gara2 keterbatasan dari heroku jadi semua gambar harus berada di folder public-->

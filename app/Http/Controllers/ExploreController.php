@@ -23,6 +23,6 @@ class ExploreController extends Controller
         // foreach(Account::getSearchResult($keyword) as $item){
         //     echo $item->username."<br />";
         // }
-        return view('explore.tmp-search-result', ['searchResult' => Account::getAccountSearchResult($keyword)]);
+        return view('explore.tmp-search-result', ['searchResult' => $this->account::where('username', $keyword)]);
     }
 }

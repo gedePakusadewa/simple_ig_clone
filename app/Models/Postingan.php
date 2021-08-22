@@ -33,26 +33,46 @@ class Postingan extends Model
         return Postingan::get();
     }
 
-    static function getAllFollowerPostinganIncludedHimSelf($account_id){
-        return Postingan::join('followers', 'postingans.account_id', '=', 'followers.follower_id')
-            ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
-            ->select('postingans.created_at', 'postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', 'accounts.selfie_path')
-            ->where('followers.member_id', '=', $account_id)
-            ->get();     
+    public function scopeGetAllFollowerPostinganIncludedHimSelf($query, $account_id){
+        return $query->select('postingans.created_at', 'postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', 'accounts.selfie_path')->join('followers', 'postingans.account_id', '=', 'followers.follower_id')
+        ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+        ->where('followers.member_id', '=', $account_id);
     }
 
     static function getTotalNumberPostinganFromOneID($id){
         return Postingan::where('account_id', '=', $id)->count();
     }
 
-    static function getEveryPostUploadedByOneID($account_id){
-        return Postingan::select('postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', Postingan::raw('COUNT(likeds.id) as totalLiked'))
-            ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
-            ->leftJoin('likeds', 'postingans.id', '=', 'likeds.postingan_id')
-            ->where('postingans.account_id', '=', $account_id)
-            ->groupBy('postingans.id', 'accounts.username')
-            ->get(); 
+    public function scopeGetEveryPostUploadedByOneID($query, $account_id){
+        return $query->select('postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', Postingan::raw('COUNT(likeds.id) as totalLiked'))
+                ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+                ->leftJoin('likeds', 'postingans.id', '=', 'likeds.postingan_id')
+                ->where('postingans.account_id', '=', $account_id)
+                ->groupBy('postingans.id', 'accounts.username');
     }
+
+    public function account(){
+        return $this->belongsTo(Account::class, 'id');
+    }
+
+    // static function getAllFollowerPostinganIncludedHimSelf($account_id){
+    //     return Postingan::join('followers', 'postingans.account_id', '=', 'followers.follower_id')
+    //         ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+    //         ->select('postingans.created_at', 'postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', 'accounts.selfie_path')
+    //         ->where('followers.member_id', '=', $account_id)
+    //         ->get();     
+    // }
+
+    // static function getEveryPostUploadedByOneID($account_id){
+    //     return Postingan::select('postingans.id', 'postingans.account_id', 'postingans.caption', 'postingans.path_src', 'accounts.username', Postingan::raw('COUNT(likeds.id) as totalLiked'))
+    //         ->join('accounts', 'postingans.account_id', '=', 'accounts.id')
+    //         ->leftJoin('likeds', 'postingans.id', '=', 'likeds.postingan_id')
+    //         ->where('postingans.account_id', '=', $account_id)
+    //         ->groupBy('postingans.id', 'accounts.username')
+    //         ->get();
+    // }
+
+
 
 
 }

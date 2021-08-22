@@ -20,20 +20,31 @@ class CommentReply extends Model
         ]);
     }
 
-    // static function addSampleData(){
-    //     return CommentReply::addNewData('werta', '1234asdf', '-', 'wwf@gmail.com', '-', '-', '-');
-    // }
-
-    static function getLastCommnent($postinganId){
-        return CommentReply::where('postingan_id', '=', $postinganId)
+    public function scopeGetLastComment($query, $postinganId){
+        return $query->where('postingan_id', '=', $postinganId)
             ->limit(1)
             ->orderBy('id', 'desc')
             ->get();
     }
 
-    static function getTotalNumberOfComment($postinganId){
-        return CommentReply::where('postingan_id', '=', $postinganId)->count();
+    public function scopeGetTotalNumberOfComment($query, $postinganId){
+        return $query->where('postingan_id', '=', $postinganId)->count();
     }
+
+    // static function addSampleData(){
+    //     return CommentReply::addNewData('werta', '1234asdf', '-', 'wwf@gmail.com', '-', '-', '-');
+    // }
+
+    // static function getLastComment($postinganId){
+    //     return CommentReply::where('postingan_id', '=', $postinganId)
+    //         ->limit(1)
+    //         ->orderBy('id', 'desc')
+    //         ->get();
+    // }
+
+    // static function getTotalNumberOfComment($postinganId){
+    //     return CommentReply::where('postingan_id', '=', $postinganId)->count();
+    // }
 
     
 

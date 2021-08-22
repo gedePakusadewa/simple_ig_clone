@@ -26,12 +26,13 @@ class Liked extends Model
             ->get(); 
     }
 
-    static function getTotalPostinganLikedPerId($postinganId){
-        return Liked::where('postingan_id', '=', $postinganId)->count();
+    public function scopeGetTotalPostinganLikedPerId($query, $postinganId){
+        return $query->where('postingan_id', '=', $postinganId)->count();
     }
 
-    static function getPostinganIdLikedByAccount($account_id){
-        return Liked::where('account_id', '=', $account_id)->get();
+
+    public function scopeGetPostinganIdLikedByAccount($query, $account_id){
+        return $query->where('account_id', '=', $account_id)->get();
     }
 
     static function checkPostinganIsLikedByAccount($postingan_id, $account_id){
@@ -46,5 +47,19 @@ class Liked extends Model
         ->delete();
     }
 
+    public function account(){
+        return $this->belongsTo(Account::class, 'id');
+    }
+
+    // public function scopeCheckPostinganIsLikedByAccountAndDeleteIt($query, $user_id){
+    //     retu
+    
+    // static function getTotalPostinganLikedPerId($postinganId){
+    //     return Liked::where('postingan_id', '=', $postinganId)->count();
+    // }
+
+    // static function getPostinganIdLikedByAccount($account_id){
+    //     return Liked::where('account_id', '=', $account_id)->get();
+    // }
     
 }
