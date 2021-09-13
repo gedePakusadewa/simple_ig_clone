@@ -177,6 +177,8 @@ return [
 
         Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -231,6 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'ImageOptimizer' => Spatie\LaravelImageOptimizer\ImageOptimizerFacade::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

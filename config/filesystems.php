@@ -42,6 +42,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'my_public' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/img-post',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

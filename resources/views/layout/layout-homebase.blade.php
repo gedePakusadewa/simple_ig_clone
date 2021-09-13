@@ -158,6 +158,7 @@
 				</div>
 				<div style = "background-color:white; padding-bottom:10px;">
 					<div class="d-flex justify-content-end">
+						<div><a href = "{{route('upload_pg', ['account_name' => session('account_username')])}}"><i class="material-icons" style = "font-size:30px; color:black; padding-top:5px;">Upload</i></a></div>
 						<div><a href = "{{route('home_timeline_page')}}"><i class="material-icons" style = "font-size:30px; color:black; padding-top:5px;">home</i></a></div>
 						<div><a href = "{{route('home_inbox_page')}}"><i class='fab fa-facebook-messenger' style = "font-size:23px; color:black; padding-top:9px; padding-left:17px;"></i></a></div>
 						<div><a href = "{{route('home_explore_page')}}"><i class="material-icons" style = "font-size:26px;  color:black; padding-top:7px; padding-left:17px;">explore</i></a></div>
