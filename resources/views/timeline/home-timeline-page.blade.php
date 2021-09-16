@@ -14,7 +14,7 @@
 						<img style = "width:100%; height:auto; object-fit: cover;" src = "img-post/{{$post->path_src}}" width = "600" loading = "lazy" /> 
 
 						<div style = "padding:5px 10px;">
-							<a href = "{{route('add_liked_dta', [
+							<!-- <a href = "{{route('add_liked_dta', [
 								'account_name' => session('account_username'),
 								'idPostingan' => $post->id
 								])}}" class = "p-1 pr-3" style = "float:left">
@@ -23,7 +23,14 @@
 								@else
 								  <i class='far fa-heart' style = "font-size:23px; color:black;"></i>
 								@endif
-							</a>
+							</a> -->
+							<div id="id_like_button_{{ $post->id }}" onclick="like_dislike({{ $post->id }}, {{ $post->alreadyLiked }})" class = "p-1 pr-3" style = "float:left">
+								@if($post->alreadyLiked === true)
+								  <i class='fas fa-heart' style = "font-size:23px; color:red;"></i>
+								@else
+								  <i class='far fa-heart' style = "font-size:23px; color:black;"></i>
+								@endif
+							</div>
 							<a href = "" class = "p-1  pr-3" style = "float:left"><i class='far fa-comment' style = "font-size:23px; color:black;"></i></a>
 							<a href = "" class = "p-1" style = "float:left"><i class='fas fa-location-arrow' style = "font-size:20px; color:black;"></i></a>
 							<a href = "" class = "p-1" style = "float:right"><i class='far fa-bookmark' style = "font-size:20px; color:black;"></i></a>
@@ -111,9 +118,21 @@
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+	<script>
+		function like_dislike(pkPost, isLiked){
+			// console.log(isLiked)
+			if(isLiked){
+				$('#id_like_button_'+pkPost).html("<i class='far fa-heart' style = 'font-size:23px; color:black;'></i>");
+				document.getElementById('id_like_button_'+pkPost).setAttribute('onclick','like_dislike('+pkPost+',false)');
+			}else{
+				$('#id_like_button_'+pkPost).html("<i class='fas fa-heart' style = 'font-size:23px; color:red;'></i>");
+				document.getElementById('id_like_button_'+pkPost).setAttribute('onclick','like_dislike('+pkPost+',true)');
+			}
 
-	<script>	
+			// $.ajax(function(){
+
+			// })
+		}
 	</script>
 
 @endsection

@@ -25,7 +25,7 @@ class UploadController extends Controller
 
         $path_img = $file->store('', ['disk' => 'my_public']);
 
-        // dd($path_img);
+
 
         Postingan::addNewData($account_id, $caption, 'photo', $path_img);
 
@@ -36,10 +36,13 @@ class UploadController extends Controller
         // http://image.intervention.io/getting_started/installation#laravel
         // https://artisansweb.net/how-to-upload-and-crop-image-in-laravel-using-imgareaselect-intervention-image-library/
 
-        // to finally create image instances
-        $image = $manager->make('img-post/'.$path_img)->resize(600, 400);
+        // run this for resize
+        // $image = $manager->make('img-post/'.$path_img)->resize(600, 400);
+        // $image->save();
+
+        //this for cropping
+        $image = $manager->make('img-post/'.$path_img)->crop(600, 400, 0, 0);
         $image->save();
-        // $image->store('', ['disk' => 'my_public']);
 
         //ImageOptimizer::optimize('/postingan/tes123.jpg);
         //echo "<img src='".asset('storage/img-post/Aa8QJRXW17vPz1FjxwKh76bkUYUoG70kx9ZH8jV4.jpg')."' />";
