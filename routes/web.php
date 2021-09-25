@@ -65,6 +65,7 @@ Route::group(['prefix' => '{account_name}'], function(){
 
     //--------------ajax-----------------
     Route::post('set-unset-like/{id_postingan}', [LikeController::class, 'ajax_set_unset_like'])->name('ajax_set_unset_like');
+    Route::get('set-follow-unfollow/{id_user_to_be_followed}', [ProfileController::class, 'ajax_set_follow_unfollow'])->name('ajax_set_follow_unfollow');
 });
 
 Route::middleware('optimizeImages')->group(function () {
