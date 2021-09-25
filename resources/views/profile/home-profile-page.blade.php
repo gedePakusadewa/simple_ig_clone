@@ -9,7 +9,8 @@
 			<div class="p-2 pl-5" style = "">
 				<div class="d-flex">
 					<div class="p-2" style = "font-size:25px;">{{$accountData->username}}</div>
-					<div class="p-2"><button style = "font-weight:bold;">edit profile</button></div>
+					<div class="p-2"><button id="id_folow_button" data-idUser = "{{ $accountData->id }}" style = "font-weight:bold;">
+					@if($isFollowed === true) unfollow @else follow @endif</button></div>
 					<div class="p-2"><i class="material-icons" style="font-size:36px">settings</i></div>
 				</div>
 				<div class="d-flex">
@@ -61,6 +62,21 @@
 		</div>
 	</div>
 	<script>
-		
+		$('#id_folow_button').click(function(){
+			let id_user_to_be_followed = $(this).attr('data-idUser');
+			let url_tmp = "{{ route('ajax_set_follow_unfollow', ['account_name' => 'tes', 'id_user_to_be_followed' => '-9999' ]) }}";
+			$.ajax({
+				url: url_tmp.replace('-9999', id_user_to_be_followed),
+				method: 'get',
+				success:function(dataServer){
+					if(dataServer.is_delete_user === true){
+						$("#id_folow_button").html('follow');
+					}else{
+						$("#id_folow_button").html('unfollow');
+					}
+				},
+				error: function(){alert('error');}, 
+			});  
+		});
 	</script>
 @endsection
