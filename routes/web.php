@@ -6,6 +6,7 @@ use App\Http\Controllers\InboxController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::post('save-comment-postingan/{idPostingan}', [CommentController::class, 'setNewDataComment'])->name('save_comment_post');
     Route::get('saved', [ProfileController::class, 'getSavedPage'])->name('saved_post');
     Route::post('save-comment', [CommentController::class, 'setNewCommentData'])->name('save_comment');
+
+    //--------------ajax-----------------
+    Route::post('set-unset-like/{id_postingan}', [LikeController::class, 'ajax_set_unset_like'])->name('ajax_set_unset_like');
 });
 
 Route::middleware('optimizeImages')->group(function () {

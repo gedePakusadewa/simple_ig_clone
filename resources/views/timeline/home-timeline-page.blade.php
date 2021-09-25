@@ -24,7 +24,7 @@
 								  <i class='far fa-heart' style = "font-size:23px; color:black;"></i>
 								@endif
 							</a> -->
-							<div id="id_like_button_{{ $post->id }}" onclick="like_dislike({{ $post->id }}, {{ $post->alreadyLiked }})" class = "p-1 pr-3" style = "float:left">
+							<div id="id_like_button_{{ $post->id }}" onclick="like_dislike({{ $post->id }}, {{ $post->alreadyLiked }})" data-url="{{route('add_liked_dta', ['account_name' => $post->username, 'idPostingan' => $post->id ])}}" class = "p-1 pr-3" style = "float:left">
 								@if($post->alreadyLiked === true)
 								  <i class='fas fa-heart' style = "font-size:23px; color:red;"></i>
 								@else
@@ -35,7 +35,7 @@
 							<a href = "" class = "p-1" style = "float:left"><i class='fas fa-location-arrow' style = "font-size:20px; color:black;"></i></a>
 							<a href = "" class = "p-1" style = "float:right"><i class='far fa-bookmark' style = "font-size:20px; color:black;"></i></a>
 						</div>
-						<div style = "padding:5px 10px;">
+						<div id="id_total_liked_{{ $post->id }}" style = "padding:5px 10px;">
 						  @if($post->totalLiked === 0)
 						    Be the first to <strong>like this</strong>
 						  @else
@@ -120,19 +120,32 @@
 
 	<script>
 		function like_dislike(pkPost, isLiked){
-			// console.log(isLiked)
 			if(isLiked){
 				$('#id_like_button_'+pkPost).html("<i class='far fa-heart' style = 'font-size:23px; color:black;'></i>");
 				document.getElementById('id_like_button_'+pkPost).setAttribute('onclick','like_dislike('+pkPost+',false)');
+
 			}else{
 				$('#id_like_button_'+pkPost).html("<i class='fas fa-heart' style = 'font-size:23px; color:red;'></i>");
 				document.getElementById('id_like_button_'+pkPost).setAttribute('onclick','like_dislike('+pkPost+',true)');
 			}
 
-			// $.ajax(function(){
-
-			// })
+			let url_tmp = "{{ route('ajax_set_unset_like', ['account_name' => 'ass', 'id_postingan'=>'-99999']) }}";
+			$.ajax({
+			  headers: {
+			      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			  },	
+			  url: url_tmp.replace('-99999', pkPost),
+			  method: 'POST', 
+			  success:function(result){
+			  	if(result.total_liked === 0){
+			  	  $('#id_total_liked_'+pkPost ).html("Be the first to <strong>like this</strong>");
+			  	}else{
+			  	  $('#id_total_liked_'+pkPost ).html("<strong>"+result.total_liked+" likes</strong>");
+			  	}
+			  }
+			});
 		}
+
 	</script>
 
 @endsection
