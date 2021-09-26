@@ -11,7 +11,7 @@
 						</div>
 						
 						<!-- seberarnya makek asset fitur laravel, tapi gara2 keterbatasan dari heroku jadi semua gambar harus berada di folder public-->
-						<img style = "width:100%; height:auto; object-fit: cover;" src = "img-post/{{$post->path_src}}" width = "600" loading = "lazy" /> 
+						<img style = "width:100%; height:auto; object-fit: cover;" src = "/img-post/{{$post->path_src}}" width = "600" loading = "lazy" /> 
 
 						<div style = "padding:5px 10px;">
 							<!-- <a href = "{{route('add_liked_dta', [
