@@ -152,6 +152,7 @@
 				let formData = new FormData(this);
 				let pkPost = $(this).attr('data-idPostingan');
 				let url_tmp = "{{ route('ajax_set_comment', ['account_name' => 'tes', 'idPostingan'=>'-99999']) }}";
+				let url_account = "{{route('profile_page', ['account_name' => '-99999'])}}";
 				$.ajax({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -163,7 +164,7 @@
           contentType: false,
 					success:function(result){
 						$('.total_comment').html('View all '+result.total_comment+' comments');
-						$('.latest_comment').html('<a class = "account-link" href = ""><strong>'+result.latest_comment+'</strong></a> '+result.latest_account);
+						$('.latest_comment').html('<a class = "account-link" href = "'+url_account.replace('-99999', result.latest_account)+'"><strong>'+result.latest_account+'</strong></a> '+result.latest_comment);
 					},
 					error:function(e){
 						console.log(e);
