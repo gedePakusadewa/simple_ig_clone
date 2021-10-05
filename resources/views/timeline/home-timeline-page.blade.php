@@ -45,17 +45,17 @@
 						<div style = "padding:5px 10px">
 							<a class = "account-link" href = "{{route('profile_page', ['account_name' => $post->username])}}"><strong>{{$post->username}}</strong></a> {{$post->caption}}
 						</div>
-						<div style = "padding:0px 10px" class = "text-secondary">
+						<div style = "padding:0px 10px" class = "text-secondary total_comment">
 						  @if($post->totalComment > 0)
 						    View all {{$post->totalComment}} comments
 						  @endif
 						</div>
-						<div style = "padding:5px 10px">
+						<div style = "padding:5px 10px" class="latest_comment">
 							<a class = "account-link" href = ""><strong>{{$post->oneLastAccountComment}}</strong></a> {{$post->oneLastComment}}
 						</div>
 						<div style = "padding:5px 10px" class = "text-secondary">{{$post->when_its_uploaded}}</div>
-						<div class = "comment-section-timeline">
-							<form action = "{{route('save_comment', ['account_name' => session('account_username')])}}" method = "post" id = "commentForm">
+						<div class = "comment_section_timeline">
+							<form id="form_comment" data-idPostingan= "{{ $post->id }}" method = "POST">
 								<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>" />
 								<input type = "hidden" name = "postingan_id" value = "{{$post->id}}" />
 								<i class='far fa-smile' style='text-align:center; font-size:24px; width:10%;'></i>
@@ -145,6 +145,32 @@
 			  }
 			});
 		}
+
+		$(document).ready(function(){
+			$('.comment_section_timeline').on('submit','#form_comment',function(e){
+				e.preventDefault();	
+				let formData = new FormData(this);
+				let pkPost = $(this).attr('data-idPostingan');
+				let url_tmp = "{{ route('ajax_set_comment', ['account_name' => 'tes', 'idPostingan'=>'-99999']) }}";
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},	
+					url: url_tmp.replace('-99999', pkPost),
+					method: 'POST', 
+					data: formData,
+					processData: false,
+          contentType: false,
+					success:function(result){
+						$('.total_comment').html('View all '+result.total_comment+' comments');
+						$('.latest_comment').html('<a class = "account-link" href = ""><strong>'+result.latest_comment+'</strong></a> '+result.latest_account);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+			});
+		});
 
 	</script>
 

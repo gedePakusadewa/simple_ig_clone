@@ -59,6 +59,7 @@ Route::group(['prefix' => '{account_name}'], function(){
     Route::get('upload-post', 'App\Http\Controllers\UploadController@getUploadPage')->name('upload_pg');
     Route::post('validate-and-save-post', 'App\Http\Controllers\UploadController@setNewPostdata')->name('validate_save_post');
     Route::get('save-like-postingan/{idPostingan}', 'App\Http\Controllers\LikeController@setNewDataLike')->name('add_liked_dta');
+
     Route::post('save-comment-postingan/{idPostingan}', [CommentController::class, 'setNewDataComment'])->name('save_comment_post');
     Route::get('saved', [ProfileController::class, 'getSavedPage'])->name('saved_post');
     Route::post('save-comment', [CommentController::class, 'setNewCommentData'])->name('save_comment');
@@ -66,6 +67,7 @@ Route::group(['prefix' => '{account_name}'], function(){
     //--------------ajax-----------------
     Route::post('set-unset-like/{id_postingan}', [LikeController::class, 'ajax_set_unset_like'])->name('ajax_set_unset_like');
     Route::get('set-follow-unfollow/{id_user_to_be_followed}', [ProfileController::class, 'ajax_set_follow_unfollow'])->name('ajax_set_follow_unfollow');
+    Route::post('set-comment-postingan/{idPostingan}', [CommentController::class, 'ajax_set_comment'])->name('ajax_set_comment');
 });
 
 Route::middleware('optimizeImages')->group(function () {

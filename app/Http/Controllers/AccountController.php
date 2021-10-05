@@ -31,8 +31,6 @@ class AccountController extends Controller
     }
 
     public function getLogInPage(Request $request){
-        //Account::addSampleData();
-        //$this->isSessionExists($request, 'account_username') 
 
         if($this->isCookieExist() && $this->isSessionExists($request, 'account_username')){
             return redirect()->route('home_timeline_page');
@@ -45,6 +43,7 @@ class AccountController extends Controller
             //$this->setCookies();
             return view('account.login-page');
         }
+
 
         //ada kondisi lainnyua yaitu ketika user ada session tetapi tidak ada cookie. kuala sink terapin ibe karena klo session ada pasti cookie dibuat.
     }
