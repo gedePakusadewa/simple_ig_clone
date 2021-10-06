@@ -14,7 +14,7 @@ class ExploreController extends Controller
     }
 
     public function getHomeExplore(){
-        return view('explore.home-explore-page', ['exploreData' => $this->postingan::all()]);
+        return view('explore.home-explore-page', ['exploreData' => $this->postingan::where('account_id', '<>', session('account_id'))->get()]);
     }
 
     public function getAccountSearchResult(Request $request){

@@ -165,6 +165,7 @@
 					success:function(result){
 						$('.total_comment').html('View all '+result.total_comment+' comments');
 						$('.latest_comment').html('<a class = "account-link" href = "'+url_account.replace('-99999', result.latest_account)+'"><strong>'+result.latest_account+'</strong></a> '+result.latest_comment);
+						$('#form_comment').trigger("reset");
 					},
 					error:function(e){
 						console.log(e);
